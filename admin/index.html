@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Upload Certificate Data</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <img src="assets/images/globalwings.png" alt="Global Wings Logo" class="logo">
+        <h2>Upload Certificate Data</h2>
+        <form id="admin-upload-form" enctype="multipart/form-data">
+            <label for="symbol">Symbol No:</label>
+            <input type="text" id="symbol" name="symbol" placeholder="e.g. 0010001Q or 0010001" required>
+
+            <label for="name">Trainee Name:</label>
+            <input type="text" id="name" name="name" placeholder="Full Name" required>
+
+            <label for="training-period">Training Period:</label>
+            <input type="text" id="training-period" name="training-period" placeholder="e.g. Jan 2024 - June 2024" required>
+
+            <label for="issuedate">Issue Date:</label>
+            <input type="date" id="issuedate" name="issuedate" required>
+
+            <label for="certificate-image">Upload Certificate Image:</label>
+            <input type="file" id="certificate-image" name="certificate-image" accept="image/*" required>
+
+            <button type="submit" class="btn">Upload Data</button>
+        </form>
+    </div>
+</body>
+
+</html>
