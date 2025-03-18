@@ -1,4 +1,4 @@
-document.getElementById("certificate-image").addEventListener("change", function (event) {
+document.getElementById("certificate-image").addEventListener("change", function(event) {
     const fileInput = event.target;
     const file = fileInput.files[0];
     const preview = document.getElementById("image-preview");
@@ -9,16 +9,23 @@ document.getElementById("certificate-image").addEventListener("change", function
             alert("Invalid file type! Please upload an image file (JPG, PNG, or GIF).");
             fileInput.value = "";
             preview.style.display = "none";
+            preview.removeAttribute("src"); // Remove src completely
+            preview.setAttribute("hidden", true); // Hide it properly
             return;
         }
 
-        // Show image preview
+        // Show preview only after a valid file is selected
         const reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = function(e) {
             preview.src = e.target.result;
             preview.style.display = "block";
+            preview.removeAttribute("hidden"); // Reveal it when an image is uploaded
         };
         reader.readAsDataURL(file);
+    } else {
+        preview.style.display = "none";
+        preview.removeAttribute("src");
+        preview.setAttribute("hidden", true); // Hide it properly if file is removed
     }
 });
 
