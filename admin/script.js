@@ -1,3 +1,15 @@
+document.getElementById("issue-date").addEventListener("change", function () {
+    let date = new Date(this.value);
+    if (!isNaN(date)) {
+        let formattedDate = 
+            ("0" + (date.getMonth() + 1)).slice(-2) + "/" + 
+            ("0" + date.getDate()).slice(-2) + "/" + 
+            date.getFullYear();
+        this.value = formattedDate;
+    }
+});
+
+
 document.getElementById("certificate-image").addEventListener("change", function(event) {
     const fileInput = event.target;
     const file = fileInput.files[0];
