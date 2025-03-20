@@ -117,11 +117,12 @@ button {
     color: white;
     border: none;
     padding: 12px 20px;
+    margin-top: 10px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
-    width: 100%;
+    width: 104%;
     transition: background 0.3s ease;
 }
 
@@ -137,7 +138,7 @@ button:active {
 @media (max-width: 1024px) {
     .container {
         width: 50%;
-        padding: 20px;
+        padding: 30px;
     }
 }
 
@@ -173,7 +174,7 @@ button:active {
     input[type="date"],
     input[type="number"],
     .btn {
-        padding: 6px;
+        padding: 4px;
         font-size: 14px;
     }
 
