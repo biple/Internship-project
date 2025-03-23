@@ -19,6 +19,35 @@ body {
     text-align: center;
 }
 
+.message-container {
+    display: none;
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.message-container.success {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.message-container.error {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.message-container.show {
+    display: block;
+    opacity: 1;
+}
+
+
 .logo {
     width: 150px;
     margin: 10px;

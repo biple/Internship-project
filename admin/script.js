@@ -48,3 +48,43 @@ document.getElementById("admin-upload-form").addEventListener("submit", function
         event.preventDefault();
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("admin-upload-form");
+    const messageContainer = document.createElement("div");
+    messageContainer.classList.add("message-container");
+    form.parentNode.appendChild(messageContainer);
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+
+        fetch("upload_certificate.php", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            messageContainer.textContent = data.message;
+            messageContainer.classList.remove("error", "success"); // Reset classes
+
+            if (data.status === "success") {
+                messageContainer.classList.add("success");
+                form.reset(); // Clear form on success
+            } else {
+                messageContainer.classList.add("error");
+            }
+
+            messageContainer.classList.add("show"); // Show animation
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                messageContainer.classList.remove("show");
+            }, 3000);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+});
