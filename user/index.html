@@ -10,21 +10,23 @@
 
 <body>
     <div class="container">
-        <img src="assets/images/globalwings.png" alt="Global Wings Logo" class="logo">
+        <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo">
         <h2>Verify your AirHostess Training Certification</h2>
-        <div class="highlight">Enter your <b>symbol number</b>, <b>Issue date</b> and <b>Passed Year </b>as given format to verify your Certification.</div>
-        <form id="verification-form">
-            <label for="symbol">Symbol No:</label>
-            <input type="text" id="symbol" name="symbol" placeholder="e.g. 0010001Q or 0010001" required>
+        <div class="highlight">Enter your <b>symbol number</b>, <b>Issue date</b> and <b>Passed Year </b>as given format
+            to verify your Certification.</div>
+        <form id="verification-form" action="verify_certificate.php" method="POST">
+            <label for="symbol_no">Symbol No:</label>
+            <input type="text" id="symbol_no" name="symbol_no" placeholder="e.g. 0010001Q or 0010001" required>
 
-            <label for="dob">Issue Date:</label>
+            <label for="issuedate">Issue Date:</label>
             <input type="date" id="issuedate" name="issuedate" required>
 
-            <label for="year">Passed Year:</label>
-            <input type="number" id="year" name="year" placeholder="e.g. 2073" required>
+            <label for="year">Training Period:</label>
+            <input type="text" id="year" name="year" placeholder="July 07, 2024 - October 08, 2024" required>
 
             <button type="submit" class="btn">Get Result</button>
         </form>
+
         <p class="note">नोटः यो वेबसाइटमा राखिएको परीक्षार्थीहरुको विवरण प्रचलित कनुन बमोजिम संसोधन हुने प्राबधान
             रहेकाले परीक्षार्थीहरुको रेकर्ड भेरिफाई नभएमा अन्तिम सत्यापनका लागि <a
                 href="globalwings.com.np/contact-us">GlobalWings</a> मा सम्पर्क राख्नुहोला ।</p>
