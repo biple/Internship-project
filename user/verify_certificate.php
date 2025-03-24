@@ -100,25 +100,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         border-radius: 10px;
                     }
                     h2 {
-                        color: #D9534F; /* Red for error */
+                        color:rgb(255, 8, 0); /* Red for error */
                     }
                     p {
                         font-size: 18px;
                         margin-top: 10px;
-                        color: #D9534F;
+                        color:#b71c1c;
                     }
                     .retry-btn {
                         display: inline-block;
                         margin-top: 20px;
                         padding: 10px 20px;
-                        background: #D9534F;
+                        background:#b71c1c;
                         color: white;
                         text-decoration: none;
                         border-radius: 5px;
                         font-size: 16px;
                     }
                     .retry-btn:hover {
-                        background: #B52B27;
+                        background:rgb(255, 8, 0);
                     }
                 </style>
             </head>
