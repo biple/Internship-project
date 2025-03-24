@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost"; 
-$username = "root"; 
-$password = ""; 
-$database = "globalwings"; // Update with your actual database name
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "globalwings";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -14,8 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['symbol_no']) && !empty($_POST['issuedate']) && !empty($_POST['year'])) {
         $symbol_no = $conn->real_escape_string($_POST['symbol_no']);
         $issuedate = $conn->real_escape_string($_POST['issuedate']);
-        $year = $conn->real_escape_string($_POST['year']); // Matches 'training_period'
-
+        $year = $conn->real_escape_string($_POST['year']);
         $sql = "SELECT graduated_student, image_path FROM certificates WHERE symbol_no = '$symbol_no' AND issue_date = '$issuedate' AND training_period = '$year'";
         $result = $conn->query($sql);
 
@@ -87,4 +86,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
-?>
