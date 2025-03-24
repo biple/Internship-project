@@ -2,6 +2,7 @@
 include 'db_config.php';
 
 header('Content-Type: application/json'); // Ensure JSON response
+ob_clean(); // Clears any accidental output
 
 $response = ["status" => "error", "message" => "Something went wrong!"];
 
@@ -11,6 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $training_period = $conn->real_escape_string($_POST['training_period']);
     $issue_date = $_POST['issue_date']; // Use the direct date value from input
 
+    // ✅ Ensure all fields are filled
+    if (empty($symbol_no) || empty($graduated_student) || empty($training_period) || empty($issue_date) || empty($_FILES["certificate_image"]["name"])) {
+        $response["message"] = "Please fill out all fields!";
+        echo json_encode($response);
+        exit;
+    }
 
     // Handle Image Upload
     $upload_dir = "uploads/";

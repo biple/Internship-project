@@ -1,16 +1,8 @@
 document.getElementById("issue-date").addEventListener("change", function () {
-    let date = new Date(this.value);
-    if (!isNaN(date)) {
-        let formattedDate = 
-            ("0" + (date.getMonth() + 1)).slice(-2) + "/" + 
-            ("0" + date.getDate()).slice(-2) + "/" + 
-            date.getFullYear();
-        this.value = formattedDate;
-    }
+    console.log("Selected date:", this.value); // Debugging - shows in console
 });
 
-
-document.getElementById("certificate-image").addEventListener("change", function(event) {
+document.getElementById("certificate-image").addEventListener("change", function (event) {
     const fileInput = event.target;
     const file = fileInput.files[0];
     const preview = document.getElementById("image-preview");
@@ -28,7 +20,7 @@ document.getElementById("certificate-image").addEventListener("change", function
 
         // Show preview only after a valid file is selected
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             preview.src = e.target.result;
             preview.style.display = "block";
             preview.removeAttribute("hidden"); // Reveal it when an image is uploaded
@@ -60,31 +52,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const formData = new FormData(form);
 
+        // Get issue date and format it
+        let issueDateInput = document.getElementById("issue-date");
+        let issueDate = new Date(issueDateInput.value);
+        if (!isNaN(issueDate)) {
+            formData.set("issue_date", issueDate.toISOString().split("T")[0]); // Keeps YYYY-MM-DD format
+        }
+
         fetch("upload_certificate.php", {
             method: "POST",
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            messageContainer.textContent = data.message;
-            messageContainer.classList.remove("error", "success"); // Reset classes
+            .then(response => response.json()) // Ensure response is parsed
+            .then(data => {
+                messageContainer.textContent = data.message;
+                messageContainer.classList.remove("error", "success"); // Reset classes
 
-            if (data.status === "success") {
-                messageContainer.classList.add("success");
-                form.reset(); // Clear form on success
-            } else {
-                messageContainer.classList.add("error");
-            }
+                if (data.status === "success") {
+                    messageContainer.classList.add("success");
+                    form.reset(); // Clear form on success
+                } else {
+                    messageContainer.classList.add("error");
+                }
 
-            messageContainer.classList.add("show"); // Show animation
+                messageContainer.classList.add("show"); // Show animation
 
-            // Hide after 3 seconds
-            setTimeout(() => {
-                messageContainer.classList.remove("show");
-            }, 3000);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    messageContainer.classList.remove("show");
+                }, 3000);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
     });
+
 });
