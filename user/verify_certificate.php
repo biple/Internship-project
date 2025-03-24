@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "globalwings";
+$servername = "localhost"; 
+$username = "root"; 
+$password = ""; 
+$database = "globalwings"; // Update with your actual database name
 
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -14,7 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['symbol_no']) && !empty($_POST['issuedate']) && !empty($_POST['year'])) {
         $symbol_no = $conn->real_escape_string($_POST['symbol_no']);
         $issuedate = $conn->real_escape_string($_POST['issuedate']);
-        $year = $conn->real_escape_string($_POST['year']);
+        $year = $conn->real_escape_string($_POST['year']); // Matches 'training_period'
+
         $sql = "SELECT graduated_student, image_path FROM certificates WHERE symbol_no = '$symbol_no' AND issue_date = '$issuedate' AND training_period = '$year'";
         $result = $conn->query($sql);
 
@@ -76,8 +77,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </body>
             </html>";
         } else {
-            echo "<h2>Verification Failed</h2>";
-            echo "<p>No matching record found. Please check your details and try again.</p>";
+            echo "<!DOCTYPE html>
+            <html lang='en'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <title>Verification Failed</title>
+                <style>
+                    body {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                        text-align: center;
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                    }
+                    .container {
+                        background: white;
+                        padding: 30px;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                        border-radius: 10px;
+                    }
+                    h2 {
+                        color: #D9534F; /* Red for error */
+                    }
+                    p {
+                        font-size: 18px;
+                        margin-top: 10px;
+                        color: #D9534F;
+                    }
+                    .retry-btn {
+                        display: inline-block;
+                        margin-top: 20px;
+                        padding: 10px 20px;
+                        background: #D9534F;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        font-size: 16px;
+                    }
+                    .retry-btn:hover {
+                        background: #B52B27;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <h2>Verification Failed</h2>
+                    <p>No matching record found. Please check your details and try again.</p>
+                    <a href='index.html' class='retry-btn'>Try Again</a>
+                </div>
+            </body>
+            </html>";
         }
     } else {
         echo "<h2>Error</h2>";
@@ -86,3 +138,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
+?>
