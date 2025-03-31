@@ -44,12 +44,12 @@ body {
     margin-left: 250px;
     padding: 20px;
     flex: 1;
+    text-align: center;
 }
 
 header {
     background: white;
     padding: 15px;
-    text-align: center;
     font-size: 24px;
     font-weight: bold;
     color: #8B0000;
@@ -59,30 +59,48 @@ header {
 .cards {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin-top: 50px;
+    gap: 40px;
+    margin-top: 60px;
 }
 
 .card {
     background: white;
-    padding: 20px;
-    width: 250px;
+    padding: 30px;
+    width: 300px;
     text-align: center;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
-.card:hover {
-    background: #f8f8f8;
-}
-
 .card img {
-    width: 80px;
+    width: 100px;
     height: auto;
 }
 
 .card h3 {
-    margin-top: 15px;
+    margin-top: 20px;
+    font-size: 20px;
     color: #8B0000;
+}
+
+/* Different classes for proper alignment */
+.alumni-info h3 {
+    margin-top: 15px;
+}
+
+.alumni-certificates h3 {
+    margin-top: 25px;
+}
+
+/* Footer */
+footer {
+    background: #8B0000;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 50px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
