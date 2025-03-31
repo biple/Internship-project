@@ -64,6 +64,14 @@ header {
     color: #8B0000;
 }
 
+.alumni-info h3 {
+    margin-top: 15px;
+}
+
+.alumni-certificates h3 {
+    margin-top: 35px;
+}
+
 /* Footer Stuck to Bottom */
 footer {
     background: #8B0000;
