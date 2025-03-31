@@ -58,6 +58,11 @@ header {
     height: auto;
 }
 
+/* Align the second image properly */
+.alumni-certificates .cert-icon {
+    margin-top: 15px; /* Adjust this value until both images align */
+}
+
 .card h3 {
     margin-top: 20px;
     font-size: 22px;
@@ -69,7 +74,7 @@ header {
 }
 
 .alumni-certificates h3 {
-    margin-top: 35px;
+    margin-top: 26px;
 }
 
 /* Footer Stuck to Bottom */
