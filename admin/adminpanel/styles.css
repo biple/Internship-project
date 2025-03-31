@@ -1,9 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow-x: hidden; /* Fix horizontal scrolling */
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -13,55 +19,56 @@ header {
     font-weight: bold;
     color: #8B0000;
     border-bottom: 3px solid #8B0000;
+    text-align: center;
 }
 
 .main-content {
+    flex: 1; /* Pushes footer to bottom */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 40px;
 }
 
 .cards {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin-top: 60px;
+    gap: 50px;
+    margin-top: 40px;
 }
 
 .card {
     background: white;
-    padding: 30px;
-    width: 300px;
+    padding: 40px; /* Increased size */
+    width: 350px; /* Increased width */
+    height: 220px; /* Increased height */
     text-align: center;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .card img {
-    width: 100px;
+    width: 120px; /* Increased size */
     height: auto;
 }
 
 .card h3 {
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 22px;
     color: #8B0000;
 }
 
-/* Different classes for alignment */
-.alumni-info h3 {
-    margin-top: 15px;
-}
-
-.alumni-certificates h3 {
-    margin-top: 25px;
-}
-
-/* Footer */
+/* Footer Stuck to Bottom */
 footer {
     background: #8B0000;
     color: white;
     text-align: center;
     padding: 10px;
-    margin-top: 50px;
     width: 100%;
 }
