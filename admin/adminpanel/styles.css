@@ -82,9 +82,8 @@ header {
 }
 
 .upload-certificate img {
-    width: 70px;
+    width: 100px;
     height: auto;
-    margin-top: 20px;
 }
 
 .alumni-certificates .cert-icon {
@@ -108,7 +107,7 @@ header {
 }
 
 .upload-certificate h3 {
-    margin-top: 15px;
+    margin-top: 10px;
     font-family: 'Bungee Inline', cursive;
 }
 
