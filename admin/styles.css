@@ -33,12 +33,14 @@ body {
 }
 
 .message-container.success {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
+    /* Green */
     color: white;
 }
 
 .message-container.error {
-    background-color: #f44336; /* Red */
+    background-color: #f44336;
+    /* Red */
     color: white;
 }
 
@@ -47,10 +49,9 @@ body {
     opacity: 1;
 }
 
-
 .logo {
     width: 150px;
-    margin: 10px;
+    margin: 5px;
 }
 
 h2 {
@@ -78,7 +79,8 @@ label {
 
 input[type="text"],
 input[type="date"],
-input[type="number"] {
+input[type="number"],
+input[type="email"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -134,7 +136,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
     background: #e40707;
 }
 
-#imagePreview{
+#imagePreview {
     display: none;
     width: 100%;
     margin-top: 10px;
@@ -142,7 +144,8 @@ input[type="file"]::-webkit-file-upload-button:hover {
 }
 
 button {
-    background-color: #c40000; /* Dark Red */
+    background-color: #c40000;
+    /* Dark Red */
     color: white;
     border: none;
     padding: 12px 20px;
@@ -156,11 +159,13 @@ button {
 }
 
 button:hover {
-    background-color: #900000; /* Darker Red */
+    background-color: #900000;
+    /* Darker Red */
 }
 
 button:active {
-    background-color: #700000; /* Even Darker Red */
+    background-color: #700000;
+    /* Even Darker Red */
 }
 
 
