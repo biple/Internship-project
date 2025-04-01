@@ -7,24 +7,22 @@
 html, body {
     font-family: Arial, sans-serif;
     height: 100%;
-    overflow-x: hidden; /* Fix horizontal scrolling */
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
 }
 
-/* Style the Global Wings logo */
 .logo {
-    width: 180px; /* Adjust size as needed */
+    width: 180px;
     height: auto;
 }
 
-/* Move the Admin Dashboard text below the red line */
 .admin-title {
     text-align: center;
     font-size: 26px;
     font-weight: bold;
     color: #8B0000;
-    margin-top: 10px; /* Adjust spacing as needed */
+    margin-top: 10px;
 }
 
 
@@ -39,7 +37,7 @@ header {
 }
 
 .main-content {
-    flex: 1; /* Pushes footer to bottom */
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,9 +54,9 @@ header {
 
 .card {
     background: white;
-    padding: 40px; /* Increased size */
-    width: 350px; /* Increased width */
-    height: 220px; /* Increased height */
+    padding: 40px;
+    width: 350px;
+    height: 220px;
     text-align: center;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -70,13 +68,12 @@ header {
 }
 
 .card img {
-    width: 120px; /* Increased size */
+    width: 120px;
     height: auto;
 }
 
-/* Align the second image properly */
 .alumni-certificates .cert-icon {
-    margin-top: 15px; /* Adjust this value until both images align */
+    margin-top: 15px;
 }
 
 .card h3 {
@@ -93,7 +90,6 @@ header {
     margin-top: 26px;
 }
 
-/* Footer Stuck to Bottom */
 footer {
     background: #8B0000;
     color: white;
