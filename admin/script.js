@@ -34,10 +34,13 @@ document.getElementById("certificate-image").addEventListener("change", function
 });
 
 document.getElementById("admin-upload-form").addEventListener("submit", function (event) {
-    const fileInput = document.getElementById("certificate-image");
-    if (!fileInput.files.length) {
-        alert("Please upload an image file before submitting.");
+    const certificateInput = document.getElementById("certificate-image");
+    const alumniPhotoInput = document.getElementById("alumni-photo");
+
+    if (!certificateInput.files.length || !alumniPhotoInput.files.length) {
+        alert("Please upload both the certificate and alumni photo before submitting.");
         event.preventDefault();
+        return;
     }
 });
 

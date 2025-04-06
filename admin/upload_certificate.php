@@ -10,50 +10,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $symbol_no = $conn->real_escape_string($_POST['symbol_no']);
     $graduated_student = $conn->real_escape_string($_POST['graduated_student']);
     $training_period = $conn->real_escape_string($_POST['training_period']);
-    $issue_date = $_POST['issue_date'];
+    $issue_date = $conn->real_escape_string($_POST['issue_date']);
     $alumni_email = $conn->real_escape_string($_POST['alumni_email']);
     $alumni_contact = $conn->real_escape_string($_POST['alumni_contact']);
 
-    // ✅ Ensure all fields are filled
-    if (empty($symbol_no) || empty($graduated_student) || empty($training_period) || empty($issue_date) || empty($_FILES["certificate_image"]["name"])) {
-        $response["message"] = "Please fill out all fields!";
-        echo json_encode($response);
+    // Ensure files are uploaded properly
+    if (!isset($_FILES['alumni_photo']) || $_FILES['alumni_photo']['error'] !== UPLOAD_ERR_OK) {
+        echo json_encode(["status" => "error", "message" => "No valid alumni photo uploaded."]);
         exit;
     }
 
-    // Handle Image Upload
-    $upload_dir = "uploads/";
-    if (!file_exists($upload_dir)) {
-        mkdir($upload_dir, 0777, true);
-    }
-
-    $image_name = basename($_FILES["certificate_image"]["name"]);
-    $image_path = $upload_dir . uniqid() . "_" . $image_name;
-    $image_type = strtolower(pathinfo($image_path, PATHINFO_EXTENSION));
-
-    // Allowed file types
-    $allowed_types = ["jpg", "jpeg", "png", "gif"];
-    if (!in_array($image_type, $allowed_types)) {
-        $response["message"] = "Invalid file type! Only JPG, PNG, and GIF allowed.";
-        echo json_encode($response);
+    if (!isset($_FILES['certificate_image']) || $_FILES['certificate_image']['error'] !== UPLOAD_ERR_OK) {
+        echo json_encode(["status" => "error", "message" => "No valid certificate image uploaded."]);
         exit;
     }
 
-    if (move_uploaded_file($_FILES["certificate_image"]["tmp_name"], $image_path)) {
-        // Insert into Database
-        $sql = "INSERT INTO certificates (symbol_no, graduated_student, training_period, issue_date, image_path, alumni_email, alumni_contact) 
-        VALUES ('$symbol_no', '$graduated_student', '$training_period', '$issue_date', '$image_path', '$alumni_email', '$alumni_contact')";
+    // Check if upload directories are writable
+    if (!is_writable("uploads/") || !is_writable("uploads/")) {
+        echo json_encode(["status" => "error", "message" => "Upload directories are not writable."]);
+        exit;
+    }
 
-        if ($conn->query($sql) === TRUE) {
-            $response["status"] = "success";
-            $response["message"] = "Certificate uploaded successfully!";
-        } else {
-            $response["message"] = "Database error: " . $conn->error;
-        }
+    // Handle alumni photo upload
+    $alumni_photo = $_FILES['alumni_photo']['name'];
+    $alumni_photo_tmp = $_FILES['alumni_photo']['tmp_name'];
+    $alumni_photo_target = "uploads/" . basename($alumni_photo);
+
+    // Handle certificate image upload
+    $certificate_image = $_FILES['certificate_image']['name'];
+    $certificate_image_tmp = $_FILES['certificate_image']['tmp_name'];
+    $certificate_image_target = "uploads/" . basename($certificate_image);
+
+    // Ensure both images are uploaded successfully
+    if (!move_uploaded_file($alumni_photo_tmp, $alumni_photo_target)) {
+        echo json_encode(["status" => "error", "message" => "Failed to upload alumni photo."]);
+        exit;
+    }
+
+    if (!move_uploaded_file($certificate_image_tmp, $certificate_image_target)) {
+        echo json_encode(["status" => "error", "message" => "Failed to upload certificate image."]);
+        exit;
+    }
+
+    // Insert into database
+    $sql = "INSERT INTO certificates (symbol_no, graduated_student, training_period, issue_date, alumni_email, alumni_contact, alumni_photo, certificate_image) 
+            VALUES ('$symbol_no', '$graduated_student', '$training_period', '$issue_date', '$alumni_email', '$alumni_contact', '$alumni_photo_target', '$certificate_image_target')";
+
+    if (mysqli_query($conn, $sql)) {
+        $response = ["status" => "success", "message" => "Data uploaded successfully!"];
     } else {
-        $response["message"] = "Error uploading the image.";
+        $response = ["status" => "error", "message" => "Database error: " . mysqli_error($conn)];
     }
-}
 
-$conn->close();
-echo json_encode($response);
+    echo json_encode($response);
+    mysqli_close($conn);
+}
