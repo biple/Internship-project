@@ -1,7 +1,9 @@
+// Log issue date changes for debugging
 document.getElementById("issue-date").addEventListener("change", function () {
     console.log("Selected date:", this.value); // Debugging - shows in console
 });
 
+// Handle file input changes for certificate image preview
 document.getElementById("certificate-image").addEventListener("change", function (event) {
     const fileInput = event.target;
     const file = fileInput.files[0];
@@ -12,27 +14,32 @@ document.getElementById("certificate-image").addEventListener("change", function
         if (!allowedTypes.includes(file.type)) {
             alert("Invalid file type! Please upload an image file (JPG, PNG, or GIF).");
             fileInput.value = "";
-            preview.style.display = "none";
-            preview.removeAttribute("src"); // Remove src completely
-            preview.setAttribute("hidden", true); // Hide it properly
+            if (preview) {
+                preview.style.display = "none";
+                preview.removeAttribute("src");
+                preview.setAttribute("hidden", true);
+            }
             return;
         }
 
-        // Show preview only after a valid file is selected
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            preview.src = e.target.result;
-            preview.style.display = "block";
-            preview.removeAttribute("hidden"); // Reveal it when an image is uploaded
-        };
-        reader.readAsDataURL(file);
-    } else {
+        // Show preview only if element exists (optional feature)
+        if (preview) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+                preview.removeAttribute("hidden");
+            };
+            reader.readAsDataURL(file);
+        }
+    } else if (preview) {
         preview.style.display = "none";
         preview.removeAttribute("src");
-        preview.setAttribute("hidden", true); // Hide it properly if file is removed
+        preview.setAttribute("hidden", true);
     }
 });
 
+// Basic form validation before submission
 document.getElementById("admin-upload-form").addEventListener("submit", function (event) {
     const certificateInput = document.getElementById("certificate-image");
     const alumniPhotoInput = document.getElementById("alumni-photo");
@@ -44,6 +51,7 @@ document.getElementById("admin-upload-form").addEventListener("submit", function
     }
 });
 
+// Handle form submission and database upload
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("admin-upload-form");
     const messageContainer = document.createElement("div");
@@ -55,40 +63,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const formData = new FormData(form);
 
-        // Get issue date and format it
-        let issueDateInput = document.getElementById("issue-date");
-        let issueDate = new Date(issueDateInput.value);
-        if (!isNaN(issueDate)) {
-            formData.set("issue_date", issueDate.toISOString().split("T")[0]); // Keeps YYYY-MM-DD format
-        }
-
         fetch("upload_certificate.php", {
             method: "POST",
             body: formData
         })
-            .then(response => response.json()) // Ensure response is parsed
-            .then(data => {
-                messageContainer.textContent = data.message;
-                messageContainer.classList.remove("error", "success"); // Reset classes
+        .then(response => response.json())
+        .then(data => {
+            messageContainer.textContent = data.message;
+            messageContainer.classList.remove("error", "success");
 
-                if (data.status === "success") {
-                    messageContainer.classList.add("success");
-                    form.reset(); // Clear form on success
-                } else {
-                    messageContainer.classList.add("error");
+            if (data.status === "success") {
+                messageContainer.classList.add("success");
+                form.reset(); // Clear form on success
+                
+                // Clear file preview if it exists (optional feature)
+                const preview = document.getElementById("image-preview");
+                if (preview) {
+                    preview.style.display = "none";
+                    preview.removeAttribute("src");
+                    preview.setAttribute("hidden", true);
                 }
+            } else {
+                messageContainer.classList.add("error");
+            }
 
-                messageContainer.classList.add("show"); // Show animation
-
-                // Hide after 3 seconds
-                setTimeout(() => {
-                    messageContainer.classList.remove("show");
-                }, 3000);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-
+            messageContainer.classList.add("show");
+            setTimeout(() => {
+                messageContainer.classList.remove("show");
+            }, 3000);
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            messageContainer.textContent = "An unexpected error occurred.";
+            messageContainer.classList.add("error", "show");
+            setTimeout(() => {
+                messageContainer.classList.remove("show");
+            }, 3000);
+        });
     });
-
 });
