@@ -20,10 +20,12 @@
             echo "<p>Would you like to view or download the certificate?</p>";
             // View Certificate button
             echo '<button class="btn" id="view-certificate">View Certificate</button>';
+            // Download Certificate button (immediately available)
+            echo '<button class="btn" id="download-certificate">Download Certificate</button>';
             // Hidden container for the certificate image
             echo '<div id="certificate-container" style="display: none; margin-top: 20px;">';
             echo '<img id="certificate-image" src="' . htmlspecialchars($certificate['certificate_image_path']) . '" style="max-width: 100%; border: 1px solid #ccc; border-radius: 5px;">';
-            // Download as PDF button (visible only when image is shown)
+            // Download as PDF button (visible after viewing)
             echo '<button class="btn" id="download-pdf" style="margin-top: 10px;">Download as PDF</button>';
             echo '</div>';
         } else {
@@ -41,8 +43,8 @@
             this.style.display = 'none'; // Hide the "View Certificate" button after clicking
         });
 
-        // Download certificate as PDF when "Download as PDF" is clicked
-        document.getElementById('download-pdf').addEventListener('click', function() {
+        // Function to download the certificate as a PDF
+        function downloadCertificateAsPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
@@ -78,7 +80,13 @@
 
             // Download the PDF
             doc.save('certificate.pdf');
-        });
+        }
+
+        // Download certificate as PDF when "Download Certificate" is clicked (immediately available)
+        document.getElementById('download-certificate').addEventListener('click', downloadCertificateAsPDF);
+
+        // Download certificate as PDF when "Download as PDF" is clicked (after viewing)
+        document.getElementById('download-pdf').addEventListener('click', downloadCertificateAsPDF);
     </script>
 </body>
 </html>
