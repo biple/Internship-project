@@ -122,8 +122,8 @@ input[type="file"]::-moz-file-upload-button:hover {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    margin-bottom: 10px; /* Added for spacing between buttons */
-    display: block; /* Ensure buttons stack vertically */
+    margin-bottom: 10px;
+    display: block;
 }
 
 .btn:hover {
@@ -164,6 +164,18 @@ input[type="file"]::-moz-file-upload-button:hover {
 
 .message-container.show {
     opacity: 1;
+}
+
+/* Style for certificate container */
+#certificate-container {
+    text-align: center;
+}
+
+#certificate-image {
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 1024px) {
