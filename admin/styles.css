@@ -17,6 +17,8 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     text-align: center;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .logo {
@@ -48,12 +50,17 @@ label {
 }
 
 input[type="number"],
-input[type="date"] {
+input[type="date"],
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="file"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 /* Remove arrows/spinners from number input */
@@ -67,8 +74,47 @@ input[type="number"] {
     -moz-appearance: textfield; /* Firefox */
 }
 
+/* Style file input */
+input[type="file"] {
+    padding: 0; /* Reset padding for file input */
+}
+
+/* Style the file input button */
+input[type="file"]::-webkit-file-upload-button,
+input[type="file"]::file-selector-button {
+    background: #b71c1c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover,
+input[type="file"]::file-selector-button:hover {
+    background: #e40707;
+}
+
+/* For Firefox */
+input[type="file"]::-moz-file-upload-button {
+    background: #b71c1c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+input[type="file"]::-moz-file-upload-button:hover {
+    background: #e40707;
+}
+
 .btn {
-    width: 104%;
+    width: 100%;
     padding: 10px;
     background: #b71c1c;
     color: white;
@@ -92,6 +138,30 @@ input[type="number"] {
     color: blue;
     text-decoration: none;
     font-weight: bold;
+}
+
+.message-container {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.message-container.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+.message-container.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+.message-container.show {
+    opacity: 1;
 }
 
 @media (max-width: 1024px) {
@@ -131,9 +201,19 @@ input[type="number"] {
 
     input[type="number"],
     input[type="date"],
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="file"],
     .btn {
         padding: 4px;
         font-size: 14px;
+    }
+
+    input[type="file"]::-webkit-file-upload-button,
+    input[type="file"]::file-selector-button,
+    input[type="file"]::-moz-file-upload-button {
+        padding: 4px 10px;
     }
 
     h2 {
