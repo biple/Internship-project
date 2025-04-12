@@ -13,6 +13,10 @@
         <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo">
         <?php
         session_start();
+        // Debug: Output session data
+        echo "<pre>Session Data Available: ";
+        print_r($_SESSION['certificate']);
+        echo "</pre>";
         if (isset($_SESSION['certificate'])) {
             $certificate = $_SESSION['certificate'];
             // Display the certificate image from the database path
