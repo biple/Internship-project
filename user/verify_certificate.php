@@ -48,10 +48,6 @@ try {
                 'graduated_student' => $certificate['graduated_student'],
                 'certificate_image_path' => $adjusted_image_path
             ];
-            // Debug: Output session data
-            echo "<pre>Session Data Set: ";
-            print_r($_SESSION['certificate']);
-            echo "</pre>";
             header("Location: certificate_found.php");
             exit;
         } else {
