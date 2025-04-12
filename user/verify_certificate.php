@@ -41,10 +41,12 @@ try {
         $certificate = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($certificate) {
+            // Adjust the certificate image path to be relative to the user/ directory
+            $adjusted_image_path = '../admin/' . $certificate['certificate_image_path'];
             // Certificate found, store data in session and redirect to success page
             $_SESSION['certificate'] = [
                 'graduated_student' => $certificate['graduated_student'],
-                'certificate_image_path' => $certificate['certificate_image_path']
+                'certificate_image_path' => $adjusted_image_path
             ];
             // Debug: Output session data
             echo "<pre>Session Data Set: ";

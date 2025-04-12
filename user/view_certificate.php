@@ -19,9 +19,9 @@
         echo "</pre>";
         if (isset($_SESSION['certificate'])) {
             $certificate = $_SESSION['certificate'];
-            // Display the certificate image from the database path
+            // Use serve_image.php to display the image
             echo '<div id="certificate-container" style="margin-top: 20px;">';
-            echo '<img id="certificate-image" src="' . htmlspecialchars($certificate['certificate_image_path']) . '" style="max-width: 100%; border: 1px solid #ccc; border-radius: 5px;">';
+            echo '<img id="certificate-image" src="serve_image.php" style="max-width: 100%; border: 1px solid #ccc; border-radius: 5px;">';
             // Download as PDF button
             echo '<button class="btn" id="download-pdf" style="margin-top: 10px;">Download as PDF</button>';
             echo '</div>';
