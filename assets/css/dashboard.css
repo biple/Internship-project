@@ -54,18 +54,11 @@ h1 {
     background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
 }
 
-.dashboard-item-alumni img {
+.dashboard-item img {
     width: auto; /* Increased icon size */
     height: 100px;
     margin-bottom: 15px;
 }
-
-.dashboard-item-data img {
-    width: auto; /* Increased icon size */
-    height: 100px;
-    margin-bottom: 15px;
-}
-
 
 .dashboard-item p {
     color: #b71c1c;
