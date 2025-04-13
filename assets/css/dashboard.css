@@ -1,77 +1,72 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-image: url('https://via.placeholder.com/1200x800.png?text=Background+Image+with+Barrels');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* Header */
-header {
     text-align: center;
+    background-color: #ffffff;
+  }
+  
+  .header {
+    border-bottom: 3px solid #aa1f1f;
     padding: 20px 0;
-}
-
-header img {
-    height: 60px; /* Increased logo size */
-}
-
-/* Main Title */
-h1 {
-    color: #b71c1c;
-    text-align: center;
-    margin: 10px 0px 0px 0px;
-    font-size: 2.5em;
-    border: 0px 0px 0px 0px;
-}
-
-/* Main Content */
-.dashboard {
+  }
+  
+  .logo {
+    height: 60px;
+  }
+  
+  .title {
+    color: #aa1f1f;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 40px 0 20px;
+  }
+  
+  .cards {
     display: flex;
     justify-content: center;
-    align-items: center; /* Center items vertically */
-    gap: 30px;
-    flex: 1;
-    padding: 0px 40px 40px 40px;
-}
-
-.dashboard-item {
-    border: 2px solid #b71c1c;
-    border-radius: 5px;
-    width: 450px; /* Increased size of components */
-    height: 250px; /* Increased size of components */
+    gap: 40px;
+    padding: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    width: 220px;
+    height: 220px;
+    border: 2px solid #aa1f1f;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    transition: transform 0.3s;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
-}
-
-.dashboard-item img {
-    width: auto; /* Increased icon size */
-    height: 100px;
-    margin-bottom: 15px;
-}
-
-.dashboard-item p {
-    color: #b71c1c;
-    font-size: 1.5em; /* Increased text size */
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 1rem;
     font-weight: bold;
-    margin: 0;
-}
-
-/* Footer */
-footer {
-    background-color: #b71c1c;
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    font-size: 0.9em;
-}
+    color: #aa1f1f;
+    letter-spacing: 1px;
+    line-height: 1.4;
+  }
+  
+  .footer {
+    background-color: #aa1f1f;
+    color: #fff;
+    padding: 20px;
+    font-size: 0.9rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
