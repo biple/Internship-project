@@ -1,21 +1,20 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #fff; /* White background for the entire page */
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes up the full viewport height */
 }
 
-.dashboard-container {
-    width: 80%;
-    max-width: 1000px;
-    background: #fff;
+.dashboard-content {
+    flex: 1; /* Take up remaining space above the footer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
     padding: 30px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
     text-align: center;
 }
 
@@ -33,7 +32,7 @@ h2 {
 
 .button-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Center the buttons horizontally */
     flex-wrap: wrap;
     gap: 20px;
     margin-bottom: 30px;
@@ -82,23 +81,24 @@ footer {
     color: white;
     padding: 10px;
     font-size: 12px;
-    border-radius: 0 0 5px 5px;
+    text-align: center;
+    width: 100%; /* Full width */
 }
 
 @media (max-width: 1024px) {
-    .dashboard-container {
-        width: 90%;
+    .dashboard-content {
+        padding: 20px;
     }
 }
 
 @media (max-width: 768px) {
     body {
-        align-items: flex-start;
+        justify-content: flex-start; /* Align content at the top on smaller screens */
         padding-top: 20px;
     }
     
-    .dashboard-container {
-        width: 90%;
+    .dashboard-content {
+        padding: 20px;
     }
     .button-container {
         flex-direction: column;
@@ -111,12 +111,10 @@ footer {
 
 @media (max-width: 480px) {
     body {
-        align-items: flex-start;
         padding-top: 10px;
     }
 
-    .dashboard-container {
-        width: 95%;
+    .dashboard-content {
         padding: 15px;
     }
 
