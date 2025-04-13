@@ -5,57 +5,63 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-image: url('https://via.placeholder.com/1200x800.png?text=Background+Image+with+Barrels');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Header */
 header {
     text-align: center;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 header img {
-    height: 40px;
+    height: 60px; /* Increased logo size */
 }
 
 /* Main Title */
 h1 {
     color: #b71c1c;
     text-align: center;
-    margin: 20px 0;
-    font-size: 2em;
+    margin: 30px 0;
+    font-size: 2.5em;
 }
 
 /* Main Content */
 .dashboard {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    align-items: center; /* Center items vertically */
+    gap: 30px;
     flex: 1;
-    padding: 20px;
+    padding: 40px;
 }
 
 .dashboard-item {
     border: 2px solid #b71c1c;
     border-radius: 5px;
-    width: 200px;
-    height: 200px;
+    width: 250px; /* Increased size of components */
+    height: 250px; /* Increased size of components */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
 }
 
 .dashboard-item img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
+    width: 100px; /* Increased icon size */
+    height: 100px;
+    margin-bottom: 15px;
 }
 
 .dashboard-item p {
     color: #b71c1c;
-    font-size: 1.2em;
+    font-size: 1.5em; /* Increased text size */
     font-weight: bold;
     margin: 0;
 }
