@@ -105,11 +105,12 @@ a {
 
 .icon-add {
   /* Icon tweak for add alumni */
-  width: 110px;
+  width: 132px;
 }
 
 .label-add {
   /* Label styling */
+  margin-top: 21px;
 }
 
 .footer {
