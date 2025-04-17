@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css" />
 </head>
 <body>
-  <header class="header">
-    <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo">
-  </header>
+  <div class="header">
+    <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo" />
+  </div>
 
   <h1 class="title">Admin Dashboard</h1>
 
-  <section class="cards">
-    <div class="card">
-      <img src="../assets/images/logo/alumni.png" alt="Alumni Information">
-      <p>ALUMNI INFORMATION</p>
+  <div class="cards">
+    <div class="card card-info">
+      <img src="../assets/images/logo/alumni.png" alt="Alumni Info Icon" class="icon icon-info" />
+      <p class="label label-info">ALUMNI INFORMATION</p>
     </div>
 
-    <div class="card">
-      <img src="../assets/images/logo/certificate.png" alt="Alumni Certificates">
-      <p>ALUMNI CERTIFICATES</p>
+    <div class="card card-cert">
+      <img src="../assets/images/logo/certificate.png" alt="Alumni Certificates Icon" class="icon icon-cert" />
+      <p class="label label-cert">ALUMNI CERTIFICATES</p>
     </div>
 
-    <div class="card">
-      <img src="../assets/images/logo/data-icon.png" alt="Add Alumni Details">
-      <p>ADD ALUMNI DETAILS</p>
-    </div>
-  </section>
+    <a href="index.html">
+      <div class="card card-add">
+        <img src="../assets/images/logo/data-icon.png" alt="Add Alumni Icon" class="icon icon-add" />
+        <p class="label label-add">ADD ALUMNI DETAILS</p>
+      </div>
+    </a>
+  </div>
 
-  <footer class="footer">
+  <div class="footer">
     ©2025 Globalwings. All rights reserved.
-  </footer>
-</body>
+  </div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'931a4f02d9aeb055',t:'MTc0NDg3NTk4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
