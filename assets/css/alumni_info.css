@@ -85,12 +85,13 @@ body {
   }
   
   .view-btn {
-    padding: 8px 12px; /* Reduced horizontal padding to make the button narrower */
+    padding: 6px 12px; /* Smaller padding for a compact button */
+    width: 150px; /* Fixed width to prevent spanning the entire page */
     background-color: #aa1f1f;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 0.9rem;
+    font-size: 0.8rem; /* Smaller font size */
     font-weight: bold;
     cursor: pointer;
     margin: 20px 0;
@@ -141,8 +142,9 @@ body {
     }
   
     .view-btn {
-      font-size: 0.8rem;
-      padding: 6px 10px; /* Adjusted for smaller screens */
+      width: 130px; /* Slightly smaller width for smaller screens */
+      font-size: 0.7rem;
+      padding: 5px 10px;
     }
   }
   
@@ -170,7 +172,8 @@ body {
     }
   
     .view-btn {
-      font-size: 0.7rem;
-      padding: 5px 8px; /* Adjusted for smaller screens */
+      width: 110px; /* Even smaller width for mobile */
+      font-size: 0.6rem;
+      padding: 4px 8px;
     }
   }
