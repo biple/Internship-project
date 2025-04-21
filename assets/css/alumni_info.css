@@ -30,7 +30,7 @@ body {
   .search-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end; /* Align items to the bottom to match input fields */
     flex-wrap: wrap;
     gap: 10px;
     margin: 30px 0;
@@ -78,23 +78,29 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 20px; /* Push the button down to align with input fields */
   }
   
   .search-btn:hover {
     background-color: #d32f2f; /* Slightly lighter red on hover */
   }
   
+  .view-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
   .view-btn {
-    padding: 6px 12px; /* Smaller padding for a compact button */
-    width: 150px; /* Fixed width to prevent spanning the entire page */
+    padding: 10px 12px; /* Increased vertical padding to 10px for taller button */
+    width: 150px; /* Fixed width to keep it compact */
     background-color: #aa1f1f;
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-size: 0.8rem; /* Smaller font size */
+    font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
-    margin: 20px 0;
     transition: background-color 0.3s;
   }
   
@@ -120,6 +126,7 @@ body {
     .search-container {
       flex-direction: column;
       gap: 15px;
+      align-items: center; /* Center items when stacked */
     }
   
     .search-field {
@@ -139,12 +146,13 @@ body {
     .search-btn {
       font-size: 0.9rem;
       padding: 8px 16px;
+      margin-top: 0; /* Remove margin-top when stacked */
     }
   
     .view-btn {
-      width: 130px; /* Slightly smaller width for smaller screens */
+      width: 130px;
       font-size: 0.7rem;
-      padding: 5px 10px;
+      padding: 8px 10px; /* Adjusted for smaller screens */
     }
   }
   
@@ -169,11 +177,12 @@ body {
     .search-btn {
       font-size: 0.8rem;
       padding: 6px 12px;
+      margin-top: 0; /* Remove margin-top when stacked */
     }
   
     .view-btn {
-      width: 110px; /* Even smaller width for mobile */
+      width: 110px;
       font-size: 0.6rem;
-      padding: 4px 8px;
+      padding: 6px 8px; /* Adjusted for smaller screens */
     }
   }
