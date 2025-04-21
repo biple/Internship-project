@@ -30,7 +30,7 @@ body {
   .search-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align items to the top to match the labels */
+    align-items: flex-end; /* Align items to the bottom of the input fields */
     flex-wrap: wrap;
     gap: 10px;
     margin: 30px 0;
@@ -69,7 +69,7 @@ body {
   }
   
   .search-btn {
-    padding: 15px 25px; /* Increased padding to make the button taller and wider */
+    padding: 15px 25px; /* Keep the button size */
     background-color: #aa1f1f;
     color: #fff;
     border: none;
@@ -78,7 +78,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 0; /* Removed margin-top to align with the top of the labels */
+    margin-top: 25px; /* Push the button down to align better with input fields */
   }
   
   .search-btn:hover {
@@ -145,7 +145,8 @@ body {
   
     .search-btn {
       font-size: 0.9rem;
-      padding: 12px 20px; /* Adjusted for smaller screens */
+      padding: 12px 20px;
+      margin-top: 0; /* Remove margin-top when stacked */
     }
   
     .view-btn {
@@ -175,7 +176,8 @@ body {
   
     .search-btn {
       font-size: 0.8rem;
-      padding: 10px 15px; /* Adjusted for smaller screens */
+      padding: 10px 15px;
+      margin-top: 0; /* Remove margin-top when stacked */
     }
   
     .view-btn {
