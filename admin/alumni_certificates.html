@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Alumni Certificates</title>
   <link rel="stylesheet" href="../assets/css/alumni_info.css" />
+  <!-- Include Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
   <div class="header">
@@ -13,7 +15,35 @@
 
   <h1 class="title">Alumni Certificates</h1>
 
-  <p style="text-align: center;">This page is under construction.</p>
+  <div class="search-container">
+    <div class="search-field">
+      <label for="symbol-no-cert" class="search-label">Symbol No.</label>
+      <input type="text" id="symbol-no-cert" class="search-input">
+    </div>
+    <div class="search-field">
+      <label for="alumni-name-cert" class="search-label">Name of Alumni</label>
+      <input type="text" id="alumni-name-cert" class="search-input">
+    </div>
+    <div class="search-field">
+      <label for="training-start-date-cert" class="search-label">Training Start Date</label>
+      <input type="date" id="training-start-date-cert" class="search-input">
+    </div>
+    <div class="search-field">
+      <label for="training-end-date-cert" class="search-label">Training End Date</label>
+      <input type="date" id="training-end-date-cert" class="search-input">
+    </div>
+    <div class="search-field">
+      <label for="issue-date-cert" class="search-label">Issue Date</label>
+      <input type="date" id="issue-date-cert" class="search-input">
+    </div>
+    <button class="search-btn">
+      Search
+    </button>
+  </div>
+
+  <div class="view-btn-container">
+    <button class="view-btn">View All Information</button>
+  </div>
 
   <div class="footer">
     ©2025 GlobalWings. All rights reserved.
