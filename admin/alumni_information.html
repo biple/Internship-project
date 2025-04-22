@@ -18,11 +18,11 @@
   <div class="search-container">
     <div class="search-field">
       <label for="symbol-no" class="search-label">Symbol No.</label>
-      <input type="text" id="symbol-no" class="search-input">
+      <input type="text" id="symbol-no" class="search-input" pattern="[0-9]*" title="Please enter only numbers">
     </div>
     <div class="search-field">
       <label for="alumni-name" class="search-label">Name of Alumni</label>
-      <input type="text" id="alumni-name" class="search-input">
+      <input type="text" id="alumni-name" class="search-input" pattern="[A-Za-z\s]*" title="Please enter only letters and spaces">
     </div>
     <div class="search-field">
       <label for="training-start-date" class="search-label">Training Start Date</label>
@@ -48,5 +48,17 @@
   <div class="footer">
     ©2025 GlobalWings. All rights reserved.
   </div>
+
+  <script>
+    // Restrict Symbol No. to numbers only
+    document.getElementById('symbol-no').addEventListener('input', function (e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    // Restrict Name of Alumni to letters and spaces only
+    document.getElementById('alumni-name').addEventListener('input', function (e) {
+      this.value = this.value.replace(/[^A-Za-z\s]/g, '');
+    });
+  </script>
 </body>
 </html>
