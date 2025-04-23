@@ -36,13 +36,17 @@
       <label for="issue-date" class="search-label">Issue Date</label>
       <input type="date" id="issue-date" class="search-input">
     </div>
-    <button class="search-btn">
+    <button class="search-btn" onclick="searchAlumni()">
       Search
     </button>
   </div>
 
   <div class="view-btn-container">
-    <button class="view-btn">View All Information</button>
+    <button class="view-btn" onclick="viewAllAlumni()">View All Information</button>
+  </div>
+
+  <div class="results-container" id="results">
+    <!-- Results will be dynamically inserted here -->
   </div>
 
   <div class="footer">
@@ -59,6 +63,84 @@
     document.getElementById('alumni-name').addEventListener('input', function (e) {
       this.value = this.value.replace(/[^A-Za-z\s]/g, '');
     });
+
+    // Function to search alumni based on input fields
+    function searchAlumni() {
+      const symbolNo = document.getElementById('symbol-no').value;
+      const name = document.getElementById('alumni-name').value;
+      const trainingStartDate = document.getElementById('training-start-date').value;
+      const trainingEndDate = document.getElementById('training-end-date').value;
+      const issueDate = document.getElementById('issue-date').value;
+
+      const params = new URLSearchParams({
+        symbol_no: symbolNo,
+        name: name,
+        training_start_date: trainingStartDate,
+        training_end_date: trainingEndDate,
+        issue_date: issueDate
+      });
+
+      fetch(`fetch_alumni.php?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => displayResults(data))
+        .catch(error => {
+          console.error('Error fetching alumni:', error);
+          displayResults({ error: 'Failed to fetch alumni data.' });
+        });
+    }
+
+    // Function to view all alumni (no filters)
+    function viewAllAlumni() {
+      fetch('fetch_alumni.php')
+        .then(response => response.json())
+        .then(data => displayResults(data))
+        .catch(error => {
+          console.error('Error fetching all alumni:', error);
+          displayResults({ error: 'Failed to fetch alumni data.' });
+        });
+    }
+
+    // Function to display the search results
+    function displayResults(data) {
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+
+      if (data.error) {
+        resultsContainer.innerHTML = `<p class="error-message">${data.error}</p>`;
+        return;
+      }
+
+      if (data.length === 0) {
+        resultsContainer.innerHTML = '<p class="no-results">No alumni found.</p>';
+        return;
+      }
+
+      data.forEach(alumni => {
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
+
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'details';
+        detailsDiv.innerHTML = `
+          <p><strong>Symbol No.:</strong> ${alumni.symbol_no}</p>
+          <p><strong>Name:</strong> ${alumni.name}</p>
+          <p><strong>Training Start Date:</strong> ${alumni.training_start_date}</p>
+          <p><strong>Training End Date:</strong> ${alumni.training_end_date}</p>
+          <p><strong>Issue Date:</strong> ${alumni.issue_date}</p>
+        `;
+
+        const imageDiv = document.createElement('div');
+        imageDiv.className = 'image';
+        const img = document.createElement('img');
+        img.src = alumni.image_path || '../assets/images/default-alumni.png'; // Fallback image if none exists
+        img.alt = `${alumni.name}'s Image`;
+        imageDiv.appendChild(img);
+
+        resultItem.appendChild(detailsDiv);
+        resultItem.appendChild(imageDiv);
+        resultsContainer.appendChild(resultItem);
+      });
+    }
   </script>
 </body>
 </html>
