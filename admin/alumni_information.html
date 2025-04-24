@@ -127,12 +127,14 @@
           <p><strong>Training Start Date:</strong> ${alumni.training_start_date}</p>
           <p><strong>Training End Date:</strong> ${alumni.training_end_date}</p>
           <p><strong>Issue Date:</strong> ${alumni.issue_date}</p>
+          <p><strong>Email:</strong> ${alumni.alumni_email}</p>
+          <p><strong>Contact:</strong> ${alumni.alumni_contact}</p>
         `;
 
         const imageDiv = document.createElement('div');
         imageDiv.className = 'image';
         const img = document.createElement('img');
-        img.src = alumni.image_path || '../assets/images/default-alumni.png'; // Fallback image if none exists
+        img.src = alumni.image_path || '../assets/images/default-alumni.png';
         img.alt = `${alumni.name}'s Image`;
         imageDiv.appendChild(img);
 
