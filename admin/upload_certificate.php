@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json');
+
 // Database configuration
 $host = 'localhost';
 $dbname = 'airhostess_training';
@@ -38,27 +40,47 @@ try {
             mkdir($upload_dir, 0777, true);
         }
 
+        // Validate file types and sizes
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        $max_size = 5 * 1024 * 1024; // 5MB
+
         // Process alumni photo
         $alumni_photo = $_FILES['alumni_photo'];
+        if ($alumni_photo['error'] !== UPLOAD_ERR_OK) {
+            throw new Exception("Failed to upload alumni photo.");
+        }
+        if (!in_array($alumni_photo['type'], $allowed_types)) {
+            throw new Exception("Alumni photo must be an image (JPEG, PNG, or GIF).");
+        }
+        if ($alumni_photo['size'] > $max_size) {
+            throw new Exception("Alumni photo size must be less than 5MB.");
+        }
+
         $alumni_photo_name = uniqid() . '_' . basename($alumni_photo['name']);
         $alumni_photo_path = $upload_dir . $alumni_photo_name;
-        
-        if ($alumni_photo['error'] !== UPLOAD_ERR_OK || 
-            !move_uploaded_file($alumni_photo['tmp_name'], $alumni_photo_path)) {
-            throw new Exception("Failed to upload alumni photo.");
+        if (!move_uploaded_file($alumni_photo['tmp_name'], $alumni_photo_path)) {
+            throw new Exception("Failed to move alumni photo.");
         }
 
         // Process certificate image
         $certificate_image = $_FILES['certificate_image'];
-        $certificate_image_name = uniqid() . '_' . basename($certificate_image['name']);
-        $certificate_image_path = $upload_dir . $certificate_image_name;
-        
-        if ($certificate_image['error'] !== UPLOAD_ERR_OK || 
-            !move_uploaded_file($certificate_image['tmp_name'], $certificate_image_path)) {
+        if ($certificate_image['error'] !== UPLOAD_ERR_OK) {
             throw new Exception("Failed to upload certificate image.");
         }
+        if (!in_array($certificate_image['type'], $allowed_types)) {
+            throw new Exception("Certificate image must be an image (JPEG, PNG, or GIF).");
+        }
+        if ($certificate_image['size'] > $max_size) {
+            throw new Exception("Certificate image size must be less than 5MB.");
+        }
 
-        // Prepare and execute SQL statement
+        $certificate_image_name = uniqid() . '_' . basename($certificate_image['name']);
+        $certificate_image_path = $upload_dir . $certificate_image_name;
+        if (!move_uploaded_file($certificate_image['tmp_name'], $certificate_image_path)) {
+            throw new Exception("Failed to move certificate image.");
+        }
+
+        // Insert into certificates table
         $stmt = $pdo->prepare("
             INSERT INTO certificates (
                 symbol_no, graduated_student, training_start, training_end,
@@ -66,7 +88,6 @@ try {
                 certificate_image_path
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
-
         $stmt->execute([
             $_POST['symbol_no'],
             $_POST['graduated_student'],
@@ -96,7 +117,6 @@ try {
 }
 
 // Send JSON response
-header('Content-Type: application/json');
 echo json_encode($response);
 exit;
 ?>
