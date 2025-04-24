@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 // Database connection
 $host = 'localhost';
-$dbname = 'globalwings_db';
+$dbname = 'airhostess_training';
 $username = 'root';
 $password = '';
 
@@ -23,7 +23,16 @@ $training_end_date = isset($_GET['training_end_date']) ? trim($_GET['training_en
 $issue_date = isset($_GET['issue_date']) ? trim($_GET['issue_date']) : '';
 
 // Build the SQL query dynamically
-$query = "SELECT * FROM alumni WHERE 1=1";
+$query = "SELECT 
+    symbol_no, 
+    graduated_student AS name, 
+    training_start AS training_start_date, 
+    training_end AS training_end_date, 
+    issue_date, 
+    alumni_email, 
+    alumni_contact, 
+    alumni_photo_path AS image_path 
+FROM certificates WHERE 1=1";
 $params = [];
 
 if ($symbol_no !== '') {
@@ -32,17 +41,17 @@ if ($symbol_no !== '') {
 }
 
 if ($name !== '') {
-    $query .= " AND name LIKE :name";
+    $query .= " AND graduated_student LIKE :name";
     $params[':name'] = "%$name%";
 }
 
 if ($training_start_date !== '') {
-    $query .= " AND training_start_date = :training_start_date";
+    $query .= " AND training_start = :training_start_date";
     $params[':training_start_date'] = $training_start_date;
 }
 
 if ($training_end_date !== '') {
-    $query .= " AND training_end_date = :training_end_date";
+    $query .= " AND training_end = :training_end_date";
     $params[':training_end_date'] = $training_end_date;
 }
 
