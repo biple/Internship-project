@@ -125,16 +125,30 @@ body {
   padding-bottom: 60px;
 }
 
+.results-wrapper {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.results-label {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
 .results-list {
   border: 2px solid #000;
   border-radius: 5px;
   background-color: #f0f0f0;
   padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .result-item {
-  margin: 10px 0;
-  padding: 10px;
+  margin: 5px 0;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
@@ -144,7 +158,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
 }
 
 .summary-details {
@@ -153,32 +167,59 @@ body {
 }
 
 .summary-details p {
-  margin: 5px 0;
-  font-size: 1rem;
+  margin: 3px 0;
+  font-size: 0.95rem;
 }
 
 .summary-details p:first-child {
   font-weight: bold;
 }
 
-.view-more button {
-  background-color: transparent;
-  border: none;
-  color: #aa1f1f;
+.view-details {
+  text-align: right;
+}
+
+.view-details-btn {
+  background-color: #aa1f1f;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
   font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.view-details-btn:hover {
+  background-color: #d32f2f;
+}
+
+.view-more-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.view-more-container button {
+  background-color: #aa1f1f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
+  margin: 0 auto;
+  transition: background-color 0.3s;
 }
 
-.view-more button:hover {
-  color: #d32f2f;
+.view-more-container button:hover {
+  background-color: #d32f2f;
 }
 
 .details {
   border-top: 1px solid #ccc;
-  padding: 15px;
+  padding: 10px;
   background-color: #fff;
 }
 
@@ -195,7 +236,7 @@ body {
 
 .details-text p {
   margin: 5px 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .details-text p strong {
@@ -289,10 +330,15 @@ body {
     padding: 8px 10px;
   }
 
+  .results-wrapper {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
   .summary {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
   }
 
   .summary-details {
@@ -300,7 +346,7 @@ body {
     width: 100%;
   }
 
-  .view-more {
+  .view-details {
     width: 100%;
     text-align: center;
   }
@@ -366,16 +412,30 @@ body {
     padding: 6px 8px;
   }
 
+  .results-label {
+    font-size: 1.2rem;
+  }
+
   .summary-details p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .view-details-btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
   }
 
   .details-text p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .image img {
     width: 100px;
     height: 100px;
+  }
+
+  .view-more-container button {
+    font-size: 0.9rem;
+    padding: 8px 15px;
   }
 }
