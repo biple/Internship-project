@@ -115,6 +115,10 @@
         return;
       }
 
+      // Create a single container for all results
+      const resultsList = document.createElement('div');
+      resultsList.className = 'results-list';
+
       data.forEach((alumni, index) => {
         const resultItem = document.createElement('div');
         resultItem.className = 'result-item';
@@ -158,8 +162,10 @@
 
         resultItem.appendChild(summaryDiv);
         resultItem.appendChild(detailsDiv);
-        resultsContainer.appendChild(resultItem);
+        resultsList.appendChild(resultItem);
       });
+
+      resultsContainer.appendChild(resultsList);
     }
 
     // Function to toggle the details section
