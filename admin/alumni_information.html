@@ -127,7 +127,7 @@
       const resultsList = document.createElement('div');
       resultsList.className = 'results-list';
 
-      data.forEach((alumni, index) => {
+      data.forEach((alumni) => {
         const resultItem = document.createElement('div');
         resultItem.className = 'result-item';
 
@@ -149,27 +149,7 @@
           </div>
         `;
 
-        const detailsDiv = document.createElement('div');
-        detailsDiv.className = 'details';
-        detailsDiv.id = `details-${index}`;
-        detailsDiv.style.display = 'none'; // Initially hidden
-        detailsDiv.innerHTML = `
-          <div class="details-content">
-            <div class="details-text">
-              <p><strong>Training Start Date:</strong> ${alumni.training_start_date}</p>
-              <p><strong>Training End Date:</strong> ${alumni.training_end_date}</p>
-              <p><strong>Issue Date:</strong> ${alumni.issue_date}</p>
-              <p><strong>Email:</strong> ${alumni.alumni_email}</p>
-              <p><strong>Contact:</strong> ${alumni.alumni_contact}</p>
-            </div>
-            <div class="image">
-              <img src="${alumni.image_path || '../assets/images/default-alumni.png'}" alt="${alumni.name}'s Image">
-            </div>
-          </div>
-        `;
-
         resultItem.appendChild(summaryDiv);
-        resultItem.appendChild(detailsDiv);
         resultsList.appendChild(resultItem);
       });
 
@@ -179,29 +159,21 @@
       const viewMoreBtn = document.createElement('div');
       viewMoreBtn.className = 'view-more-container';
       viewMoreBtn.innerHTML = `
-        <button onclick="toggleAllDetails()" id="toggle-all-btn">
+        <button onclick="viewMoreResults()">
           View More <i class="fas fa-chevron-down"></i>
         </button>
       `;
       resultsWrapper.appendChild(viewMoreBtn);
 
       resultsContainer.appendChild(resultsWrapper);
+
+      // Store the search results in localStorage for the "View More" page
+      localStorage.setItem('searchResults', JSON.stringify(data));
     }
 
-    // Function to toggle all details sections
-    function toggleAllDetails() {
-      const detailsDivs = document.querySelectorAll('.details');
-      const toggleBtn = document.getElementById('toggle-all-btn');
-      const icon = toggleBtn.querySelector('i');
-      const allHidden = Array.from(detailsDivs).every(div => div.style.display === 'none');
-
-      detailsDivs.forEach(div => {
-        div.style.display = allHidden ? 'block' : 'none';
-      });
-
-      toggleBtn.innerHTML = allHidden
-        ? `View Less <i class="fas fa-chevron-up"></i>`
-        : `View More <i class="fas fa-chevron-down"></i>`;
+    // Function to navigate to the "View More" page
+    function viewMoreResults() {
+      window.location.href = 'alumni_list.html';
     }
   </script>
 </body>
