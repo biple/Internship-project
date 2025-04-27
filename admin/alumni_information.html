@@ -115,33 +115,66 @@
         return;
       }
 
-      data.forEach(alumni => {
+      data.forEach((alumni, index) => {
         const resultItem = document.createElement('div');
         resultItem.className = 'result-item';
 
-        const detailsDiv = document.createElement('div');
-        detailsDiv.className = 'details';
-        detailsDiv.innerHTML = `
-          <p><strong>Symbol No.:</strong> ${alumni.symbol_no}</p>
-          <p><strong>Name:</strong> ${alumni.name}</p>
-          <p><strong>Training Start Date:</strong> ${alumni.training_start_date}</p>
-          <p><strong>Training End Date:</strong> ${alumni.training_end_date}</p>
-          <p><strong>Issue Date:</strong> ${alumni.issue_date}</p>
-          <p><strong>Email:</strong> ${alumni.alumni_email}</p>
-          <p><strong>Contact:</strong> ${alumni.alumni_contact}</p>
+        const summaryDiv = document.createElement('div');
+        summaryDiv.className = 'summary';
+        summaryDiv.innerHTML = `
+          <div class="summary-details">
+            <p><strong>Name of the alumni</strong></p>
+            <p>${alumni.name}</p>
+          </div>
+          <div class="summary-details">
+            <p><strong>Symbol no.</strong></p>
+            <p>${alumni.symbol_no}</p>
+          </div>
+          <div class="view-more">
+            <button onclick="toggleDetails(${index})" id="toggle-btn-${index}">
+              View More <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
         `;
 
-        const imageDiv = document.createElement('div');
-        imageDiv.className = 'image';
-        const img = document.createElement('img');
-        img.src = alumni.image_path || '../assets/images/default-alumni.png';
-        img.alt = `${alumni.name}'s Image`;
-        imageDiv.appendChild(img);
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'details';
+        detailsDiv.id = `details-${index}`;
+        detailsDiv.style.display = 'none'; // Initially hidden
+        detailsDiv.innerHTML = `
+          <div class="details-content">
+            <div class="details-text">
+              <p><strong>Training Start Date:</strong> ${alumni.training_start_date}</p>
+              <p><strong>Training End Date:</strong> ${alumni.training_end_date}</p>
+              <p><strong>Issue Date:</strong> ${alumni.issue_date}</p>
+              <p><strong>Email:</strong> ${alumni.alumni_email}</p>
+              <p><strong>Contact:</strong> ${alumni.alumni_contact}</p>
+            </div>
+            <div class="image">
+              <img src="${alumni.image_path || '../assets/images/default-alumni.png'}" alt="${alumni.name}'s Image">
+            </div>
+          </div>
+        `;
 
+        resultItem.appendChild(summaryDiv);
         resultItem.appendChild(detailsDiv);
-        resultItem.appendChild(imageDiv);
         resultsContainer.appendChild(resultItem);
       });
+    }
+
+    // Function to toggle the details section
+    function toggleDetails(index) {
+      const detailsDiv = document.getElementById(`details-${index}`);
+      const toggleBtn = document.getElementById(`toggle-btn-${index}`);
+      const icon = toggleBtn.querySelector('i');
+
+      if (detailsDiv.style.display === 'none') {
+        detailsDiv.style.display = 'block';
+        toggleBtn.innerHTML = `View Less <i class="fas fa-chevron-up"></i>`;
+      } else {
+        detailsDiv.style.display = 'none';
+        toggleBtn.innerHTML = `View More <i class="fas fa-chevron-down"></i>`;
+      }
     }
   </script>
 </body>
