@@ -152,6 +152,8 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .summary {
@@ -215,46 +217,6 @@ body {
 
 .view-more-container button:hover {
   background-color: #d32f2f;
-}
-
-.details {
-  border-top: 1px solid #ccc;
-  padding: 10px;
-  background-color: #fff;
-}
-
-.details-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.details-text {
-  flex: 3;
-  text-align: left;
-}
-
-.details-text p {
-  margin: 5px 0;
-  font-size: 0.95rem;
-}
-
-.details-text p strong {
-  display: inline-block;
-  width: 150px;
-}
-
-.image {
-  flex: 1;
-  text-align: center;
-}
-
-.image img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
 .error-message,
@@ -350,31 +312,6 @@ body {
     width: 100%;
     text-align: center;
   }
-
-  .details-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-
-  .details-text {
-    text-align: center;
-    width: 100%;
-  }
-
-  .details-text p strong {
-    width: auto;
-    display: inline;
-  }
-
-  .image {
-    margin: 0 auto;
-  }
-
-  .image img {
-    width: 120px;
-    height: 120px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -423,15 +360,6 @@ body {
   .view-details-btn {
     font-size: 0.8rem;
     padding: 4px 8px;
-  }
-
-  .details-text p {
-    font-size: 0.85rem;
-  }
-
-  .image img {
-    width: 100px;
-    height: 100px;
   }
 
   .view-more-container button {
