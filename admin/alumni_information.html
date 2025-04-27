@@ -115,7 +115,15 @@
         return;
       }
 
-      // Create a single container for all results
+      // Create a single container for all results with a label
+      const resultsWrapper = document.createElement('div');
+      resultsWrapper.className = 'results-wrapper';
+
+      const resultsLabel = document.createElement('h3');
+      resultsLabel.className = 'results-label';
+      resultsLabel.textContent = 'Search results:';
+      resultsWrapper.appendChild(resultsLabel);
+
       const resultsList = document.createElement('div');
       resultsList.className = 'results-list';
 
@@ -134,10 +142,10 @@
             <p><strong>Symbol no.</strong></p>
             <p>${alumni.symbol_no}</p>
           </div>
-          <div class="view-more">
-            <button onclick="toggleDetails(${index})" id="toggle-btn-${index}">
-              View More <i class="fas fa-chevron-down"></i>
-            </button>
+          <div class="view-details">
+            <a href="alumni_details.html?symbol_no=${alumni.symbol_no}" class="view-details-btn">
+              View Details
+            </a>
           </div>
         `;
 
@@ -165,22 +173,35 @@
         resultsList.appendChild(resultItem);
       });
 
-      resultsContainer.appendChild(resultsList);
+      resultsWrapper.appendChild(resultsList);
+
+      // Add "View More" button at the bottom of the results list
+      const viewMoreBtn = document.createElement('div');
+      viewMoreBtn.className = 'view-more-container';
+      viewMoreBtn.innerHTML = `
+        <button onclick="toggleAllDetails()" id="toggle-all-btn">
+          View More <i class="fas fa-chevron-down"></i>
+        </button>
+      `;
+      resultsWrapper.appendChild(viewMoreBtn);
+
+      resultsContainer.appendChild(resultsWrapper);
     }
 
-    // Function to toggle the details section
-    function toggleDetails(index) {
-      const detailsDiv = document.getElementById(`details-${index}`);
-      const toggleBtn = document.getElementById(`toggle-btn-${index}`);
+    // Function to toggle all details sections
+    function toggleAllDetails() {
+      const detailsDivs = document.querySelectorAll('.details');
+      const toggleBtn = document.getElementById('toggle-all-btn');
       const icon = toggleBtn.querySelector('i');
+      const allHidden = Array.from(detailsDivs).every(div => div.style.display === 'none');
 
-      if (detailsDiv.style.display === 'none') {
-        detailsDiv.style.display = 'block';
-        toggleBtn.innerHTML = `View Less <i class="fas fa-chevron-up"></i>`;
-      } else {
-        detailsDiv.style.display = 'none';
-        toggleBtn.innerHTML = `View More <i class="fas fa-chevron-down"></i>`;
-      }
+      detailsDivs.forEach(div => {
+        div.style.display = allHidden ? 'block' : 'none';
+      });
+
+      toggleBtn.innerHTML = allHidden
+        ? `View Less <i class="fas fa-chevron-up"></i>`
+        : `View More <i class="fas fa-chevron-down"></i>`;
     }
   </script>
 </body>
