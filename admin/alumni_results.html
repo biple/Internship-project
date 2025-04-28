@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alumni Results - Global Wings</title>
+  <link rel="stylesheet" href="../assets/css/alumni_info.css" />
+</head>
+<body>
+  <div class="header">
+    <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo" />
+  </div>
+
+  <h1 class="title">Alumni Results</h1>
+
+  <div class="results-container" id="results">
+    <!-- Results will be dynamically inserted here -->
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='alumni_information.html'">Back to Search</button>
+
+  <div class="footer">
+    ©2025 GlobalWings. All rights reserved.
+  </div>
+
+  <script>
+    // Retrieve the search results from localStorage
+    const searchResults = JSON.parse(localStorage.getItem('searchResults'));
+
+    // Function to display the results
+    function displayResults(data) {
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        resultsContainer.innerHTML = '<p class="no-results">No alumni found.</p>';
+        return;
+      }
+
+      // Create a single container for all results with a label
+      const resultsWrapper = document.createElement('div');
+      resultsWrapper.className = 'results-wrapper';
+
+      const resultsLabel = document.createElement('h3');
+      resultsLabel.className = 'results-label';
+      resultsLabel.textContent = 'Alumni Results:';
+      resultsWrapper.appendChild(resultsLabel);
+
+      const resultsList = document.createElement('div');
+      resultsList.className = 'results-list';
+
+      data.forEach((alumni) => {
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
+
+        resultItem.innerHTML = `
+          <div class="summary">
+            <div class="summary-details">
+              <p><strong>Name of the alumni</strong></p>
+              <p>${alumni.name}</p>
+            </div>
+            <div class="summary-details">
+              <p><strong>Symbol no.</strong></p>
+              <p>${alumni.symbol_no}</p>
+            </div>
+          </div>
+        `;
+
+        resultsList.appendChild(resultItem);
+      });
+
+      resultsWrapper.appendChild(resultsList);
+      resultsContainer.appendChild(resultsWrapper);
+    }
+
+    // Display the results on page load
+    displayResults(searchResults);
+  </script>
+</body>
+</html>
