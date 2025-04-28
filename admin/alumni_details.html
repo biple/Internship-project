@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alumni Details - Global Wings</title>
+  <title>Alumni List - Global Wings</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -44,6 +44,7 @@
     .results-wrapper {
       margin: 0 auto;
       max-width: 1000px;
+      text-align: left;
     }
 
     .results-label {
@@ -230,7 +231,7 @@
     <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo" />
   </div>
 
-  <h1 class="title">Alumni Details</h1>
+  <h1 class="title">Alumni List</h1>
 
   <div class="results-container" id="results">
     <!-- Results will be dynamically inserted here -->
@@ -239,13 +240,13 @@
   <button class="back-btn" onclick="window.location.href='alumni_information.html'">Back to Search</button>
 
   <div class="footer">
+   vist https://www.globalwings.com.np for more information
     ©2025 GlobalWings. All rights reserved.
   </div>
 
   <script>
-    // Get the Symbol No. from the URL query parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const symbolNo = urlParams.get('symbol_no');
+    // Retrieve the search results from localStorage
+    const searchResults = JSON.parse(localStorage.getItem('searchResults'));
 
     // Function to display the results
     function displayResults(data) {
@@ -263,61 +264,48 @@
 
       const resultsLabel = document.createElement('h3');
       resultsLabel.className = 'results-label';
-      resultsLabel.textContent = 'Alumni Details:';
+      resultsLabel.textContent = 'Alumni List:';
       resultsWrapper.appendChild(resultsLabel);
 
       const resultsList = document.createElement('div');
       resultsList.className = 'results-list';
 
-      const resultItem = document.createElement('div');
-      resultItem.className = 'result-item';
+      data.forEach((alumni) => {
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
 
-      resultItem.innerHTML = `
-        <div class="summary-details">
-          <p><strong>Name of the alumni</strong></p>
-          <p>${data.name}</p>
-        </div>
-        <div class="summary-details">
-          <p><strong>Symbol no.</strong></p>
-          <p>${data.symbol_no}</p>
-        </div>
-        <div class="details-content">
-          <div class="details-text">
-            <p><strong>Training Start Date:</strong> ${data.training_start_date}</p>
-            <p><strong>Training End Date:</strong> ${data.training_end_date}</p>
-            <p><strong>Issue Date:</strong> ${data.issue_date}</p>
-            <p><strong>Email:</strong> ${data.alumni_email}</p>
-            <p><strong>Contact:</strong> ${data.alumni_contact}</p>
+        resultItem.innerHTML = `
+          <div class="summary-details">
+            <p><strong>Name of the alumni</strong></p>
+            <p>${alumni.name}</p>
           </div>
-          <div class="image">
-            <img src="${data.image_path || '../assets/images/default-alumni.png'}" alt="${data.name}'s Image">
+          <div class="summary-details">
+            <p><strong>Symbol no.</strong></p>
+            <p>${alumni.symbol_no}</p>
           </div>
-        </div>
-      `;
+          <div class="details-content">
+            <div class="details-text">
+              <p><strong>Training Start Date:</strong> ${alumni.training_start_date}</p>
+              <p><strong>Training End Date:</strong> ${alumni.training_end_date}</p>
+              <p><strong>Issue Date:</strong> ${alumni.issue_date}</p>
+              <p><strong>Email:</strong> ${alumni.alumni_email}</p>
+              <p><strong>Contact:</strong> ${alumni.alumni_contact}</p>
+            </div>
+            <div class="image">
+              <img src="${alumni.image_path || '../assets/images/default-alumni.png'}" alt="${alumni.name}'s Image">
+            </div>
+          </div>
+        `;
 
-      resultsList.appendChild(resultItem);
+        resultsList.appendChild(resultItem);
+      });
+
       resultsWrapper.appendChild(resultsList);
       resultsContainer.appendChild(resultsWrapper);
     }
 
-    if (!symbolNo) {
-      document.getElementById('results').innerHTML = '<p class="error-message">Symbol No. is required.</p>';
-    } else {
-      // Fetch alumni details
-      fetch(`fetch_alumni_details.php?symbol_no=${symbolNo}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            document.getElementById('results').innerHTML = `<p class="error-message">${data.error}</p>`;
-            return;
-          }
-          displayResults(data);
-        })
-        .catch(error => {
-          console.error('Error fetching alumni details:', error);
-          document.getElementById('results').innerHTML = '<p class="error-message">Failed to load alumni details.</p>';
-        });
-    }
+    // Display the results on page load
+    displayResults(searchResults);
   </script>
 </body>
 </html>
