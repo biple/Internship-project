@@ -38,7 +38,7 @@ body {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0; /* Ensure no extra padding affects width */
+  padding: 0;
 }
 
 .form-container {
@@ -132,7 +132,7 @@ body {
   margin: 0 auto;
   max-width: 1000px;
   text-align: left;
-  padding: 0; /* Remove any padding that might affect alignment */
+  padding: 0;
 }
 
 .results-label {
@@ -146,32 +146,37 @@ body {
   border: 2px solid #000;
   border-radius: 5px;
   background-color: #f0f0f0;
-  padding: 10px;
+  padding: 0;
   width: 100%;
   box-sizing: border-box;
-  margin: 0; /* Ensure no margins affect the width */
+  margin: 0;
 }
 
 .result-item {
   margin: 5px 0;
-  padding: 5px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .summary {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  width: 100%;
+  padding: 0;
 }
 
 .summary-details {
   flex: 1;
   text-align: left;
+  padding: 5px;
 }
 
 .summary-details p {
@@ -185,6 +190,7 @@ body {
 
 .view-details {
   text-align: right;
+  padding: 5px;
 }
 
 .view-details-btn {
@@ -195,7 +201,7 @@ body {
   text-decoration: none;
   font-size: 0.9rem;
   transition: background-color 0.3s;
-  border: none; /* Ensure button styling is consistent */
+  border: none;
   cursor: pointer;
 }
 
@@ -227,6 +233,23 @@ body {
   background-color: #d32f2f;
 }
 
+.back-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #aa1f1f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #d32f2f;
+}
+
 .error-message,
 .no-results,
 .form-message {
@@ -241,6 +264,8 @@ body {
 
 .success-message {
   color: #28a745;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .no-results {
@@ -318,11 +343,18 @@ body {
   .summary-details {
     text-align: center;
     width: 100%;
+    padding: 5px;
   }
 
   .view-details {
     width: 100%;
     text-align: center;
+    padding: 5px;
+  }
+
+  .back-btn {
+    font-size: 0.9rem;
+    padding: 8px 15px;
   }
 }
 
@@ -377,5 +409,10 @@ body {
   .view-more-container button {
     font-size: 0.9rem;
     padding: 8px 15px;
+  }
+
+  .back-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
   }
 }
