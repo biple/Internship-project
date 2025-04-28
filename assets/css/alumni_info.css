@@ -38,7 +38,7 @@ body {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0;
+  padding: 0; /* Ensure no extra padding affects width */
 }
 
 .form-container {
@@ -132,7 +132,7 @@ body {
   margin: 0 auto;
   max-width: 1000px;
   text-align: left;
-  padding: 0;
+  padding: 0; /* Remove any padding that might affect alignment */
 }
 
 .results-label {
@@ -146,15 +146,15 @@ body {
   border: 2px solid #000;
   border-radius: 5px;
   background-color: #f0f0f0;
-  padding: 0; /* Remove padding to align edges with search-container */
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
-  margin: 0;
+  margin: 0; /* Ensure no margins affect the width */
 }
 
 .result-item {
   margin: 5px 0;
-  padding: 10px; /* Increased padding for better spacing inside */
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
@@ -166,14 +166,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0; /* Remove padding to ensure full width */
-  width: 100%;
+  padding: 5px;
 }
 
 .summary-details {
   flex: 1;
   text-align: left;
-  padding: 5px; /* Add padding inside for better spacing */
 }
 
 .summary-details p {
@@ -187,7 +185,6 @@ body {
 
 .view-details {
   text-align: right;
-  padding: 5px;
 }
 
 .view-details-btn {
@@ -198,7 +195,7 @@ body {
   text-decoration: none;
   font-size: 0.9rem;
   transition: background-color 0.3s;
-  border: none;
+  border: none; /* Ensure button styling is consistent */
   cursor: pointer;
 }
 
@@ -321,13 +318,11 @@ body {
   .summary-details {
     text-align: center;
     width: 100%;
-    padding: 5px;
   }
 
   .view-details {
     width: 100%;
     text-align: center;
-    padding: 5px;
   }
 }
 
