@@ -143,9 +143,9 @@
             <p>${alumni.symbol_no}</p>
           </div>
           <div class="view-details">
-            <a href="alumni_details.html?symbol_no=${alumni.symbol_no}" class="view-details-btn">
+            <button onclick="viewDetails()" class="view-details-btn">
               View Details
-            </a>
+            </button>
           </div>
         `;
 
@@ -159,7 +159,7 @@
       const viewMoreBtn = document.createElement('div');
       viewMoreBtn.className = 'view-more-container';
       viewMoreBtn.innerHTML = `
-        <button onclick="viewMoreResults()">
+        <button onclick="viewMoreResults('${data[0].symbol_no}')">
           View More <i class="fas fa-chevron-down"></i>
         </button>
       `;
@@ -167,13 +167,18 @@
 
       resultsContainer.appendChild(resultsWrapper);
 
-      // Store the search results in localStorage for the "View More" page
+      // Store the search results in localStorage for the "View Details" page
       localStorage.setItem('searchResults', JSON.stringify(data));
     }
 
-    // Function to navigate to the "View More" page
-    function viewMoreResults() {
-      window.location.href = 'alumni_list.html';
+    // Function to navigate to the "View Details" page (list of all results)
+    function viewDetails() {
+      window.location.href = 'alumni_details.html';
+    }
+
+    // Function to navigate to the "View More" page (single alumni details)
+    function viewMoreResults(symbolNo) {
+      window.location.href = `alumni_list.html?symbol_no=${symbolNo}`;
     }
   </script>
 </body>
