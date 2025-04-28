@@ -155,15 +155,17 @@
 
       resultsWrapper.appendChild(resultsList);
 
-      // Add "View More" button at the bottom of the results list
-      const viewMoreBtn = document.createElement('div');
-      viewMoreBtn.className = 'view-more-container';
-      viewMoreBtn.innerHTML = `
-        <button onclick="viewMoreResults('${data[0].symbol_no}')">
-          View More <i class="fas fa-chevron-down"></i>
-        </button>
-      `;
-      resultsWrapper.appendChild(viewMoreBtn);
+      // Add "View More" button only if there are 4 or more results
+      if (data.length >= 4) {
+        const viewMoreBtn = document.createElement('div');
+        viewMoreBtn.className = 'view-more-container';
+        viewMoreBtn.innerHTML = `
+          <button onclick="viewMoreResults('${data[0].symbol_no}')">
+            View More <i class="fas fa-chevron-down"></i>
+          </button>
+        `;
+        resultsWrapper.appendChild(viewMoreBtn);
+      }
 
       resultsContainer.appendChild(resultsWrapper);
 
