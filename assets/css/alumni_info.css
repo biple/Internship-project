@@ -217,19 +217,16 @@ body {
   background-color: #d32f2f;
 }
 
-.view-entries-btn {
-  background-color: #aa1f1f;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 1rem;
-  border: none;
+.view-entries-link {
+  font-size: 0.9rem;
+  color: #aa1f1f;
+  text-decoration: underline;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: color 0.3s;
 }
 
-.view-entries-btn:hover {
-  background-color: #d32f2f;
+.view-entries-link:hover {
+  color: #d32f2f;
 }
 
 .view-more-container {
@@ -380,9 +377,8 @@ body {
     padding: 8px 15px;
   }
 
-  .view-entries-btn {
-    font-size: 0.9rem;
-    padding: 8px 15px;
+  .view-entries-link {
+    font-size: 0.8rem;
   }
 }
 
@@ -444,8 +440,7 @@ body {
     padding: 6px 12px;
   }
 
-  .view-entries-btn {
-    font-size: 0.8rem;
-    padding: 6px 12px;
+  .view-entries-link {
+    font-size: 0.7rem;
   }
 }
