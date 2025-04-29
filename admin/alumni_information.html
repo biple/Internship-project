@@ -89,9 +89,22 @@
         });
     }
 
-    // Function to view all alumni (disabled for now)
+    // Function to view all alumni
     function viewAllAlumni() {
-      // Do nothing for now
+      fetch('fetch_alumni.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error('Error fetching all alumni:', data.error);
+            return;
+          }
+          // Store the results in localStorage and navigate to the all information page
+          localStorage.setItem('allAlumniResults', JSON.stringify(data));
+          window.location.href = 'alumni_all_information.html';
+        })
+        .catch(error => {
+          console.error('Error fetching all alumni:', error);
+        });
     }
 
     // Function to display the search results
@@ -122,9 +135,10 @@
       localStorage.setItem('searchResults', JSON.stringify(data));
     }
 
-    // Function to navigate to the results page
+    // Function to navigate to the results page (placeholder for now)
     function viewEntries() {
-      window.location.href = 'alumni_results.html';
+      // Placeholder: Navigation to be implemented later
+      alert('View Details page to be implemented.');
     }
   </script>
 </body>
