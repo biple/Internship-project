@@ -4,14 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Alumni Results - Global Wings</title>
-  <link rel="stylesheet" href="../assets/css/alumni_info.css" />
+  <link rel="stylesheet" href="../assets/css/alumni_results.css" />
 </head>
 <body>
   <div class="header">
     <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo" />
   </div>
 
-  <h1 class="title">Alumni Results</h1>
+  <div class="title-container">
+    <h1 class="title">Alumni Results</h1>
+    <div class="controls-container">
+      <div class="sort-container">
+        <label for="sort-by">Sort By:</label>
+        <select id="sort-by" class="sort-select">
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="symbol-asc">Symbol No. (Asc)</option>
+          <option value="symbol-desc">Symbol No. (Desc)</option>
+        </select>
+        <span class="sort-arrow">↑</span>
+      </div>
+    </div>
+  </div>
 
   <div class="results-container" id="results">
     <!-- Results will be dynamically inserted here -->
@@ -37,15 +51,6 @@
         return;
       }
 
-      // Create a single container for all results with a label
-      const resultsWrapper = document.createElement('div');
-      resultsWrapper.className = 'results-wrapper';
-
-      const resultsLabel = document.createElement('h3');
-      resultsLabel.className = 'results-label';
-      resultsLabel.textContent = 'Alumni Results:';
-      resultsWrapper.appendChild(resultsLabel);
-
       const resultsList = document.createElement('div');
       resultsList.className = 'results-list';
 
@@ -63,18 +68,47 @@
               <p><strong>Symbol no.</strong></p>
               <p>${alumni.symbol_no}</p>
             </div>
+            <div class="action-buttons">
+              <button class="edit-btn">Edit</button>
+              <button class="remove-btn">Remove</button>
+            </div>
           </div>
         `;
 
         resultsList.appendChild(resultItem);
       });
 
-      resultsWrapper.appendChild(resultsList);
-      resultsContainer.appendChild(resultsWrapper);
+      resultsContainer.appendChild(resultsList);
     }
 
-    // Display the results on page load
+    // Function to sort the results
+    function sortResults(criteria) {
+      let sortedData = [...searchResults];
+      switch (criteria) {
+        case 'name-asc':
+          sortedData.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'name-desc':
+          sortedData.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+        case 'symbol-asc':
+          sortedData.sort((a, b) => a.symbol_no - b.symbol_no);
+          break;
+        case 'symbol-desc':
+          sortedData.sort((a, b) => b.symbol_no - a.symbol_no);
+          break;
+      }
+      displayResults(sortedData);
+    }
+
+    // Event listener for sort dropdown
+    document.getElementById('sort-by').addEventListener('change', function () {
+      sortResults(this.value);
+    });
+
+    // Display the results on page load (default sort by name ascending)
     displayResults(searchResults);
+    sortResults('name-asc');
   </script>
 </body>
 </html>
