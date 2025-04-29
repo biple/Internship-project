@@ -89,15 +89,9 @@
         });
     }
 
-    // Function to view all alumni (no filters)
+    // Function to view all alumni (disabled for now)
     function viewAllAlumni() {
-      fetch('fetch_alumni.php')
-        .then(response => response.json())
-        .then(data => displayResults(data))
-        .catch(error => {
-          console.error('Error fetching all alumni:', error);
-          displayResults({ error: 'Failed to fetch alumni data.' });
-        });
+      // Do nothing for now
     }
 
     // Function to display the search results
@@ -115,16 +109,22 @@
         return;
       }
 
-      // Show success message and redirect to the results page
-      resultsContainer.innerHTML = '<p class="success-message">Alumni detail(s) found.</p>';
+      // Show success message and "View entries" button
+      const resultWrapper = document.createElement('div');
+      resultWrapper.className = 'result-message-wrapper';
+      resultWrapper.innerHTML = `
+        <p class="success-message">Alumni entries found.</p>
+        <button class="view-entries-btn" onclick="viewEntries()">View entries</button>
+      `;
+      resultsContainer.appendChild(resultWrapper);
 
       // Store the search results in localStorage for the results page
       localStorage.setItem('searchResults', JSON.stringify(data));
+    }
 
-      // Redirect to the new results page after a 2-second delay
-      setTimeout(() => {
-        window.location.href = 'alumni_results.html';
-      }, 2000);
+    // Function to navigate to the results page
+    function viewEntries() {
+      window.location.href = 'alumni_results.html';
     }
   </script>
 </body>
