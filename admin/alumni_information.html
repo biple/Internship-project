@@ -109,12 +109,12 @@
         return;
       }
 
-      // Show success message and "View entries" button
+      // Show success message and "View entries" text link
       const resultWrapper = document.createElement('div');
       resultWrapper.className = 'result-message-wrapper';
       resultWrapper.innerHTML = `
         <p class="success-message">Alumni entries found.</p>
-        <button class="view-entries-btn" onclick="viewEntries()">View entries</button>
+        <span class="view-entries-link" onclick="viewEntries()">View entries</span>
       `;
       resultsContainer.appendChild(resultWrapper);
 
