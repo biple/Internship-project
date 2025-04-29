@@ -1,0 +1,278 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .header {
+    border-bottom: 3px solid #aa1f1f;
+    padding: 20px 0;
+  }
+  
+  .logo {
+    height: 60px;
+    width: auto;
+    max-width: 200px;
+  }
+  
+  .title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px 10px 20px;
+    padding: 0 10px;
+  }
+  
+  .title {
+    color: #aa1f1f;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    text-align: center;
+  }
+  
+  .controls-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  
+  .sort-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .sort-container label {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .sort-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .sort-arrow {
+    font-size: 1rem;
+    color: #aa1f1f;
+  }
+  
+  .results-container {
+    margin: 20px 10px;
+    padding-bottom: 60px;
+  }
+  
+  .results-list {
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .result-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .summary-details {
+    flex: 1;
+    text-align: left;
+    padding: 5px;
+  }
+  
+  .summary-details p {
+    margin: 3px 0;
+    font-size: 0.95rem;
+  }
+  
+  .summary-details p:first-child {
+    font-weight: bold;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-btn,
+  .remove-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-btn {
+    background-color: #aa1f1f;
+    color: #fff;
+  }
+  
+  .edit-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  .remove-btn {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .remove-btn:hover {
+    background-color: #b3b3b3;
+  }
+  
+  .back-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #aa1f1f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .back-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+  .no-results {
+    color: #aa1f1f;
+    font-size: 1rem;
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .footer {
+    background-color: #aa1f1f;
+    color: #fff;
+    padding: 20px;
+    font-size: 0.9rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .title-container {
+      margin: 20px 10px;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .controls-container {
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .sort-container {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .sort-select {
+      width: 100%;
+      max-width: 200px;
+    }
+  
+    .result-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .summary {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .summary-details {
+      text-align: center;
+      width: 100%;
+    }
+  
+    .action-buttons {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .edit-btn,
+    .remove-btn {
+      width: 100%;
+      max-width: 120px;
+    }
+  
+    .back-btn {
+      font-size: 0.9rem;
+      padding: 8px 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .sort-container label {
+      font-size: 0.8rem;
+    }
+  
+    .sort-select {
+      font-size: 0.8rem;
+      padding: 6px;
+    }
+  
+    .sort-arrow {
+      font-size: 0.9rem;
+    }
+  
+    .summary-details p {
+      font-size: 0.85rem;
+    }
+  
+    .edit-btn,
+    .remove-btn {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+  
+    .back-btn {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+  }
