@@ -40,8 +40,11 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      // Use the image path from the database, prepending the base path
-      const imageSrc = alumni.alumni_photo_path ? `../${alumni.alumni_photo_path}` : '';
+      // Use the image path from the database, prepending the server root path
+      const imageSrc = alumni.alumni_photo_path ? `/${alumni.alumni_photo_path}` : '';
+      
+      // Log the image source for debugging
+      console.log('Attempting to load image from:', imageSrc);
 
       card.innerHTML = `
         <div class="card-content">
