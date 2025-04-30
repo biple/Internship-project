@@ -41,42 +41,39 @@
       card.className = 'card';
 
       card.innerHTML = `
-        <div class="card-header">
-          <h2>${alumni.name}</h2>
-          <p>Symbol No: ${alumni.symbol_no}</p>
-        </div>
-        <div class="card-body">
-          <div class="card-field">
-            <p><strong>Address:</strong></p>
-            <p>${alumni.address || 'N/A'}</p>
+        <div class="card-content">
+          <div class="card-details">
+            <div class="card-field">
+              <p><strong>Name of the Alumni:</strong></p>
+              <p>${alumni.name || 'N/A'}</p>
+            </div>
+            <div class="card-field">
+              <p><strong>Symbol No:</strong></p>
+              <p>${alumni.symbol_no || 'N/A'}</p>
+            </div>
+            <div class="card-field">
+              <p><strong>Training Start Date:</strong></p>
+              <p>${alumni.training_start_date || 'N/A'}</p>
+            </div>
+            <div class="card-field">
+              <p><strong>Training End Date:</strong></p>
+              <p>${alumni.training_end_date || 'N/A'}</p>
+            </div>
+            <div class="card-field">
+              <p><strong>Certificate Issue Date:</strong></p>
+              <p>${alumni.issue_date || 'N/A'}</p>
+            </div>
+            <div class="card-field">
+              <p><strong>Contact No:</strong></p>
+              <p>${alumni.contact_no || 'N/A'}</p>
+            </div>
+            <div class="card-field">
+              <p><strong>E-mail:</strong></p>
+              <p>${alumni.email || 'N/A'}</p>
+            </div>
           </div>
-          <div class="card-field">
-            <p><strong>Contact No:</strong></p>
-            <p>${alumni.contact_no || 'N/A'}</p>
-          </div>
-          <div class="card-field">
-            <p><strong>Email:</strong></p>
-            <p>${alumni.email || 'N/A'}</p>
-          </div>
-          <div class="card-field">
-            <p><strong>Training Start Date:</strong></p>
-            <p>${alumni.training_start_date || 'N/A'}</p>
-          </div>
-          <div class="card-field">
-            <p><strong>Training End Date:</strong></p>
-            <p>${alumni.training_end_date || 'N/A'}</p>
-          </div>
-          <div class="card-field">
-            <p><strong>Issue Date:</strong></p>
-            <p>${alumni.issue_date || 'N/A'}</p>
-          </div>
-          <div class="card-field">
-            <p><strong>Certificate No:</strong></p>
-            <p>${alumni.certificate_no || 'N/A'}</p>
-          </div>
-          <div class="card-field">
-            <p><strong>Course:</strong></p>
-            <p>${alumni.course || 'N/A'}</p>
+          <div class="card-image">
+            <div class="image-placeholder">Alumni Image</div>
           </div>
         </div>
       `;
