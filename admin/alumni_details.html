@@ -40,6 +40,9 @@
       const card = document.createElement('div');
       card.className = 'card';
 
+      // Determine the image source (use placeholder if no photo path exists)
+      const imageSrc = alumni.alumni_photo_path ? `../${alumni.alumni_photo_path}` : 'path/to/placeholder-image.jpg';
+
       card.innerHTML = `
         <div class="card-content">
           <div class="card-details">
@@ -65,15 +68,15 @@
             </div>
             <div class="card-field">
               <p><strong>Contact No:</strong></p>
-              <p>${alumni.contact_no || 'N/A'}</p>
+              <p>${alumni.alumni_contact || 'N/A'}</p>
             </div>
             <div class="card-field">
               <p><strong>E-mail:</strong></p>
-              <p>${alumni.email || 'N/A'}</p>
+              <p>${alumni.alumni_email || 'N/A'}</p>
             </div>
           </div>
           <div class="card-image">
-            <div class="image-placeholder">Alumni Image</div>
+            <img src="${imageSrc}" alt="Alumni Image" class="alumni-image" onerror="this.src='path/to/placeholder-image.jpg'" />
           </div>
         </div>
       `;
