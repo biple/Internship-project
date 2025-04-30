@@ -1,208 +1,131 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .header {
-    border-bottom: 3px solid #aa1f1f;
-    padding: 20px 0;
-  }
-  
-  .logo {
-    height: 60px;
-    width: auto;
-    max-width: 200px;
-  }
-  
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  border-bottom: 3px solid #aa1f1f;
+  padding: 20px 0;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+  max-width: 200px;
+}
+
+.title {
+  color: #aa1f1f;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 40px 0 20px;
+}
+
+.card-container {
+  margin: 20px 10px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.alumni-card {
+  background-color: #fff;
+  border: 2px solid #aa1f1f;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.alumni-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  color: #aa1f1f;
+}
+
+.alumni-card p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+}
+
+.alumni-card p strong {
+  color: #333;
+}
+
+.back-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #aa1f1f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #d32f2f;
+}
+
+.no-details {
+  color: #aa1f1f;
+  font-size: 1rem;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.footer {
+  background-color: #aa1f1f;
+  color: #fff;
+  padding: 20px;
+  font-size: 0.9rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
   .title {
-    color: #aa1f1f;
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin: 40px 0 20px;
+    font-size: 2rem;
   }
-  
-  .card-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 10px;
-    padding-bottom: 60px;
+
+  .alumni-card {
+    max-width: 100%;
   }
-  
-  .card {
-    background-color: #fff;
-    border: 2px solid #000;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 800px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-content {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .card-details {
-    flex: 1;
-    padding: 20px;
-    background-color: #fff;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-  }
-  
-  .card-field {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .card-field p {
-    margin: 0;
-    font-size: 0.95rem;
-  }
-  
-  .card-field p:first-child {
-    font-weight: bold;
-  }
-  
-  .card-image {
-    flex: 1;
-    background-color: #aa1f1f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-  }
-  
-  .alumni-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 2px solid #000;
-  }
-  
-  .image-placeholder {
-    width: 150px;
-    height: 150px;
-    background-color: #fff;
-    border: 2px solid #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: #333;
-    font-weight: bold;
-    text-align: center;
-    padding: 5px;
-  }
-  
+
   .back-btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #aa1f1f;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .back-btn:hover {
-    background-color: #d32f2f;
-  }
-  
-  .no-details {
-    color: #aa1f1f;
-    font-size: 1rem;
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  .footer {
-    background-color: #aa1f1f;
-    color: #fff;
-    padding: 20px;
     font-size: 0.9rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    padding: 8px 15px;
   }
-  
-  @media (max-width: 768px) {
-    .title {
-      font-size: 2rem;
-    }
-  
-    .card {
-      max-width: 500px;
-    }
-  
-    .card-content {
-      flex-direction: column;
-    }
-  
-    .card-details {
-      border-radius: 8px 8px 0 0;
-    }
-  
-    .card-image {
-      border-radius: 0 0 8px 8px;
-      padding: 20px;
-    }
-  
-    .alumni-image,
-    .image-placeholder {
-      width: 120px;
-      height: 120px;
-    }
-  
-    .card-field p {
-      font-size: 0.9rem;
-    }
-  
-    .back-btn {
-      font-size: 0.9rem;
-      padding: 8px 15px;
-    }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
   }
-  
-  @media (max-width: 480px) {
-    .title {
-      font-size: 1.5rem;
-    }
-  
-    .card {
-      max-width: 100%;
-      margin: 0 10px;
-    }
-  
-    .card-field {
-      flex-direction: column;
-      gap: 5px;
-    }
-  
-    .card-field p {
-      font-size: 0.85rem;
-    }
-  
-    .alumni-image,
-    .image-placeholder {
-      width: 100px;
-      height: 100px;
-      font-size: 0.9rem;
-    }
-  
-    .back-btn {
-      font-size: 0.8rem;
-      padding: 6px 12px;
-    }
+
+  .alumni-card h3 {
+    font-size: 1.3rem;
   }
+
+  .alumni-card p {
+    font-size: 0.85rem;
+  }
+
+  .back-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
