@@ -69,8 +69,7 @@
               <p>${alumni.symbol_no}</p>
             </div>
             <div class="action-buttons">
-              <button class="edit-btn">Edit</button>
-              <button class="remove-btn">Remove</button>
+              <button class="view-details-btn" onclick='viewDetails(${JSON.stringify(alumni)})'>View Details</button>
             </div>
           </div>
         `;
@@ -99,6 +98,12 @@
           break;
       }
       displayResults(sortedData);
+    }
+
+    // Function to navigate to the details page
+    function viewDetails(alumni) {
+      localStorage.setItem('selectedAlumni', JSON.stringify(alumni));
+      window.location.href = 'alumni_details.html';
     }
 
     // Event listener for sort dropdown
