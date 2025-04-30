@@ -40,7 +40,14 @@
       const card = document.createElement('div');
       card.className = 'alumni-card';
 
+      // Use the image path from the database, encode it, and prepend the correct directory
+      const rawImagePath = alumni.alumni_photo_path || '';
+      const imageSrc = rawImagePath ? `/admin/${encodeURI(rawImagePath)}` : '';
+
       card.innerHTML = `
+        <div class="alumni-image-container">
+          ${imageSrc ? `<img src="${imageSrc}" alt="Alumni Image" class="alumni-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'image-placeholder\\'>No Image Available</div>';"/>` : '<div class="image-placeholder">No Image Available</div>'}
+        </div>
         <h3>${alumni.name || 'N/A'}</h3>
         <p><strong>Symbol No:</strong> ${alumni.symbol_no || 'N/A'}</p>
         <p><strong>Training Start Date:</strong> ${alumni.training_start_date || 'N/A'}</p>
