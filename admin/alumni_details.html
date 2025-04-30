@@ -40,13 +40,9 @@
       const card = document.createElement('div');
       card.className = 'alumni-card';
 
-      // Use the image path from the database, encode it, and prepend the correct directory
-      const rawImagePath = alumni.alumni_photo_path || '';
-      const imageSrc = rawImagePath ? `/admin/${encodeURI(rawImagePath)}` : '';
-
       card.innerHTML = `
         <div class="alumni-image-container">
-          ${imageSrc ? `<img src="${imageSrc}" alt="Alumni Image" class="alumni-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'image-placeholder\\'>No Image Available</div>';"/>` : '<div class="image-placeholder">No Image Available</div>'}
+          <img src="${alumni.image_path || '../assets/images/default-alumni.png'}" alt="Alumni Image" class="alumni-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'image-placeholder\\'>No Image Available</div>';"/>
         </div>
         <h3>${alumni.name || 'N/A'}</h3>
         <p><strong>Symbol No:</strong> ${alumni.symbol_no || 'N/A'}</p>
@@ -60,8 +56,24 @@
       cardContainer.appendChild(card);
     }
 
-    // Display the alumni details on page load
-    displayAlumniDetails(selectedAlumni);
+    // Fetch the alumni details using the symbol_no from selectedAlumni
+    if (!selectedAlumni || !selectedAlumni.symbol_no) {
+      document.getElementById('alumni-card').innerHTML = '<p class="no-details">No alumni details available.</p>';
+    } else {
+      fetch(`fetch_alumni_details.php?symbol_no=${selectedAlumni.symbol_no}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById('alumni-card').innerHTML = `<p class="no-details">${data.error}</p>`;
+            return;
+          }
+          displayAlumniDetails(data);
+        })
+        .catch(error => {
+          console.error('Error fetching alumni details:', error);
+          document.getElementById('alumni-card').innerHTML = '<p class="no-details">Failed to load alumni details.</p>';
+        });
+    }
   </script>
 </body>
 </html>
