@@ -38,52 +38,16 @@
       }
 
       const card = document.createElement('div');
-      card.className = 'card';
-
-      // Use the image path from the database, encode it, and prepend the correct directory
-      const rawImagePath = alumni.alumni_photo_path || '';
-      const imageSrc = rawImagePath ? `/admin/${encodeURI(rawImagePath)}` : '';
-      
-      // Log the image source for debugging
-      console.log('Raw image path:', rawImagePath);
-      console.log('Encoded image source:', imageSrc);
+      card.className = 'alumni-card';
 
       card.innerHTML = `
-        <div class="card-content">
-          <div class="card-details">
-            <div class="card-field">
-              <p><strong>Name of the Alumni:</strong></p>
-              <p>${alumni.name || 'N/A'}</p>
-            </div>
-            <div class="card-field">
-              <p><strong>Symbol No:</strong></p>
-              <p>${alumni.symbol_no || 'N/A'}</p>
-            </div>
-            <div class="card-field">
-              <p><strong>Training Start Date:</strong></p>
-              <p>${alumni.training_start_date || 'N/A'}</p>
-            </div>
-            <div class="card-field">
-              <p><strong>Training End Date:</strong></p>
-              <p>${alumni.training_end_date || 'N/A'}</p>
-            </div>
-            <div class="card-field">
-              <p><strong>Certificate Issue Date:</strong></p>
-              <p>${alumni.issue_date || 'N/A'}</p>
-            </div>
-            <div class="card-field">
-              <p><strong>Contact No:</strong></p>
-              <p>${alumni.alumni_contact || 'N/A'}</p>
-            </div>
-            <div class="card-field">
-              <p><strong>E-mail:</strong></p>
-              <p>${alumni.alumni_email || 'N/A'}</p>
-            </div>
-          </div>
-          <div class="card-image">
-            ${imageSrc ? `<img src="${imageSrc}" alt="Alumni Image" class="alumni-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'image-placeholder\\'>No Image Available</div>';"/>` : '<div class="image-placeholder">No Image Available</div>'}
-          </div>
-        </div>
+        <h3>${alumni.name || 'N/A'}</h3>
+        <p><strong>Symbol No:</strong> ${alumni.symbol_no || 'N/A'}</p>
+        <p><strong>Training Start Date:</strong> ${alumni.training_start_date || 'N/A'}</p>
+        <p><strong>Training End Date:</strong> ${alumni.training_end_date || 'N/A'}</p>
+        <p><strong>Certificate Issue Date:</strong> ${alumni.issue_date || 'N/A'}</p>
+        <p><strong>Contact No:</strong> ${alumni.alumni_contact || 'N/A'}</p>
+        <p><strong>E-mail:</strong> ${alumni.alumni_email || 'N/A'}</p>
       `;
 
       cardContainer.appendChild(card);
