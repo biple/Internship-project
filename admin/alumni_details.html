@@ -40,8 +40,8 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      // Determine the image source (use placeholder if no photo path exists)
-      const imageSrc = alumni.alumni_photo_path ? `../${alumni.alumni_photo_path}` : 'path/to/placeholder-image.jpg';
+      // Use the image path from the database, prepending the base path
+      const imageSrc = alumni.alumni_photo_path ? `../${alumni.alumni_photo_path}` : '';
 
       card.innerHTML = `
         <div class="card-content">
@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="card-image">
-            <img src="${imageSrc}" alt="Alumni Image" class="alumni-image" onerror="this.src='path/to/placeholder-image.jpg'" />
+            ${imageSrc ? `<img src="${imageSrc}" alt="Alumni Image" class="alumni-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'image-placeholder\\'>No Image Available</div>';"/>` : '<div class="image-placeholder">No Image Available</div>'}
           </div>
         </div>
       `;
