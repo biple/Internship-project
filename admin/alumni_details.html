@@ -40,11 +40,13 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      // Use the image path from the database, prepending the server root path
-      const imageSrc = alumni.alumni_photo_path ? `/${alumni.alumni_photo_path}` : '';
+      // Use the image path from the database, encode it to handle special characters
+      const rawImagePath = alumni.alumni_photo_path || '';
+      const imageSrc = rawImagePath ? `/${encodeURI(rawImagePath)}` : '';
       
       // Log the image source for debugging
-      console.log('Attempting to load image from:', imageSrc);
+      console.log('Raw image path:', rawImagePath);
+      console.log('Encoded image source:', imageSrc);
 
       card.innerHTML = `
         <div class="card-content">
