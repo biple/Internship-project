@@ -3,228 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alumni List - Global Wings</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .header {
-      border-bottom: 3px solid #aa1f1f;
-      padding: 20px 0;
-      text-align: center;
-    }
-
-    .logo {
-      height: 60px;
-      width: auto;
-      max-width: 200px;
-    }
-
-    .title {
-      color: #aa1f1f;
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin: 40px 0 20px;
-      text-align: center;
-    }
-
-    .results-container {
-      max-width: 1000px;
-      margin: 20px auto;
-      padding-bottom: 60px;
-    }
-
-    .results-wrapper {
-      margin: 0 auto;
-      max-width: 1000px;
-      text-align: left;
-    }
-
-    .results-label {
-      font-size: 1.5rem;
-      color: #333;
-      text-align: left;
-      margin-bottom: 10px;
-      margin-left: 10px;
-    }
-
-    .results-list {
-      border: 2px solid #000;
-      border-radius: 5px;
-      background-color: #f0f0f0;
-      padding: 10px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .result-item {
-      margin: 5px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #fff;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .summary-details {
-      margin-bottom: 10px;
-    }
-
-    .summary-details p {
-      margin: 3px 0;
-      font-size: 0.95rem;
-    }
-
-    .summary-details p:first-child {
-      font-weight: bold;
-    }
-
-    .details-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .details-text {
-      flex: 3;
-      text-align: left;
-    }
-
-    .details-text p {
-      margin: 5px 0;
-      font-size: 0.95rem;
-    }
-
-    .details-text p strong {
-      display: inline-block;
-      width: 150px;
-    }
-
-    .image {
-      flex: 1;
-      text-align: center;
-    }
-
-    .image img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .error-message,
-    .no-results {
-      font-size: 1rem;
-      text-align: center;
-      margin: 20px 0;
-      color: #aa1f1f;
-    }
-
-    .back-btn {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      background-color: #aa1f1f;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .back-btn:hover {
-      background-color: #d32f2f;
-    }
-
-    .footer {
-      background-color: #aa1f1f;
-      color: #fff;
-      padding: 20px;
-      font-size: 0.9rem;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-    }
-
-    @media (max-width: 768px) {
-      .title {
-        font-size: 2rem;
-      }
-
-      .results-wrapper {
-        max-width: 100%;
-        padding: 0 10px;
-      }
-
-      .results-label {
-        margin-left: 0;
-      }
-
-      .details-content {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-      }
-
-      .details-text {
-        text-align: center;
-        width: 100%;
-      }
-
-      .details-text p strong {
-        width: auto;
-        display: inline;
-      }
-
-      .image {
-        margin: 0 auto;
-      }
-
-      .image img {
-        width: 120px;
-        height: 120px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .title {
-        font-size: 1.5rem;
-      }
-
-      .results-label {
-        font-size: 1.2rem;
-      }
-
-      .summary-details p {
-        font-size: 0.85rem;
-      }
-
-      .details-text p {
-        font-size: 0.85rem;
-      }
-
-      .image img {
-        width: 100px;
-        height: 100px;
-      }
-
-      .back-btn {
-        font-size: 0.9rem;
-        padding: 8px 15px;
-      }
-    }
-  </style>
+  <title>Alumni Details - Global Wings</title>
+  <link rel="stylesheet" href="../assets/css/alumni_details.css" />
 </head>
 <body>
   <div class="header">
@@ -233,78 +13,79 @@
 
   <h1 class="title">Alumni Details</h1>
 
-  <div class="results-container" id="results">
-    <!-- Results will be dynamically inserted here -->
+  <div class="card-container" id="alumni-card">
+    <!-- Card will be dynamically inserted here -->
   </div>
 
-  <button class="back-btn" onclick="window.location.href='alumni_information.html'">Back to Search</button>
+  <button class="back-btn" onclick="window.location.href='alumni_results.html'">Back to Results</button>
 
   <div class="footer">
     ©2025 GlobalWings. All rights reserved.
   </div>
 
   <script>
-    // Retrieve the search results from localStorage
-    const searchResults = JSON.parse(localStorage.getItem('searchResults'));
+    // Retrieve the selected alumni from localStorage
+    const selectedAlumni = JSON.parse(localStorage.getItem('selectedAlumni'));
 
-    // Function to display the results
-    function displayResults(data) {
-      const resultsContainer = document.getElementById('results');
-      resultsContainer.innerHTML = '';
+    // Function to display the alumni details in a card
+    function displayAlumniDetails(alumni) {
+      const cardContainer = document.getElementById('alumni-card');
+      cardContainer.innerHTML = '';
 
-      if (!data || data.length === 0) {
-        resultsContainer.innerHTML = '<p class="no-results">No alumni found.</p>';
+      if (!alumni) {
+        cardContainer.innerHTML = '<p class="no-details">No alumni details available.</p>';
         return;
       }
 
-      // Create a single container for all results with a label
-      const resultsWrapper = document.createElement('div');
-      resultsWrapper.className = 'results-wrapper';
+      const card = document.createElement('div');
+      card.className = 'card';
 
-      const resultsLabel = document.createElement('h3');
-      resultsLabel.className = 'results-label';
-      resultsLabel.textContent = 'Alumni Details:';
-      resultsWrapper.appendChild(resultsLabel);
-
-      const resultsList = document.createElement('div');
-      resultsList.className = 'results-list';
-
-      data.forEach((alumni) => {
-        const resultItem = document.createElement('div');
-        resultItem.className = 'result-item';
-
-        resultItem.innerHTML = `
-          <div class="summary-details">
-            <p><strong>Name of the alumni</strong></p>
-            <p>${alumni.name}</p>
+      card.innerHTML = `
+        <div class="card-header">
+          <h2>${alumni.name}</h2>
+          <p>Symbol No: ${alumni.symbol_no}</p>
+        </div>
+        <div class="card-body">
+          <div class="card-field">
+            <p><strong>Address:</strong></p>
+            <p>${alumni.address || 'N/A'}</p>
           </div>
-          <div class="summary-details">
-            <p><strong>Symbol no.</strong></p>
-            <p>${alumni.symbol_no}</p>
+          <div class="card-field">
+            <p><strong>Contact No:</strong></p>
+            <p>${alumni.contact_no || 'N/A'}</p>
           </div>
-          <div class="details-content">
-            <div class="details-text">
-              <p><strong>Training Start Date:</strong> ${alumni.training_start_date}</p>
-              <p><strong>Training End Date:</strong> ${alumni.training_end_date}</p>
-              <p><strong>Issue Date:</strong> ${alumni.issue_date}</p>
-              <p><strong>Email:</strong> ${alumni.alumni_email}</p>
-              <p><strong>Contact:</strong> ${alumni.alumni_contact}</p>
-            </div>
-            <div class="image">
-              <img src="${alumni.image_path || '../assets/images/default-alumni.png'}" alt="${alumni.name}'s Image">
-            </div>
+          <div class="card-field">
+            <p><strong>Email:</strong></p>
+            <p>${alumni.email || 'N/A'}</p>
           </div>
-        `;
+          <div class="card-field">
+            <p><strong>Training Start Date:</strong></p>
+            <p>${alumni.training_start_date || 'N/A'}</p>
+          </div>
+          <div class="card-field">
+            <p><strong>Training End Date:</strong></p>
+            <p>${alumni.training_end_date || 'N/A'}</p>
+          </div>
+          <div class="card-field">
+            <p><strong>Issue Date:</strong></p>
+            <p>${alumni.issue_date || 'N/A'}</p>
+          </div>
+          <div class="card-field">
+            <p><strong>Certificate No:</strong></p>
+            <p>${alumni.certificate_no || 'N/A'}</p>
+          </div>
+          <div class="card-field">
+            <p><strong>Course:</strong></p>
+            <p>${alumni.course || 'N/A'}</p>
+          </div>
+        </div>
+      `;
 
-        resultsList.appendChild(resultItem);
-      });
-
-      resultsWrapper.appendChild(resultsList);
-      resultsContainer.appendChild(resultsWrapper);
+      cardContainer.appendChild(card);
     }
 
-    // Display the results on page load
-    displayResults(searchResults);
+    // Display the alumni details on page load
+    displayAlumniDetails(selectedAlumni);
   </script>
 </body>
 </html>
