@@ -40,9 +40,9 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      // Use the image path from the database, encode it to handle special characters
+      // Use the image path from the database, encode it, and prepend the correct directory
       const rawImagePath = alumni.alumni_photo_path || '';
-      const imageSrc = rawImagePath ? `/${encodeURI(rawImagePath)}` : '';
+      const imageSrc = rawImagePath ? `/admin/${encodeURI(rawImagePath)}` : '';
       
       // Log the image source for debugging
       console.log('Raw image path:', rawImagePath);
