@@ -40,9 +40,9 @@
       const card = document.createElement('div');
       card.className = 'alumni-card';
 
-      // Use the image path from the database, encode it, and prepend the correct directory
+      // Use the image path from the database, relative to the admin folder
       const rawImagePath = alumni.alumni_photo_path || '';
-      const imageSrc = rawImagePath ? `/admin/${encodeURI(rawImagePath)}` : '';
+      const imageSrc = rawImagePath ? `uploads/${encodeURI(rawImagePath)}` : '';
 
       card.innerHTML = `
         <div class="alumni-image-container">
