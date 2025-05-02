@@ -5,6 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Alumni Details - Global Wings</title>
   <link rel="stylesheet" href="../assets/css/alumni_details.css" />
+  <style>
+    .message-container {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      text-align: center;
+    }
+
+    .message-container.success {
+      background-color: #dff0d8;
+      color: #3c763d;
+      border: 1px solid #d6e9c6;
+    }
+
+    .message-container.error {
+      background-color: #f2dede;
+      color: #a94442;
+      border: 1px solid #ebccd1;
+    }
+
+    .message-container.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .message-container {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .message-container {
+        font-size: 0.8rem;
+        padding: 6px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="header">
@@ -20,6 +60,7 @@
   <div class="button-container">
     <button class="btn edit-btn">Edit</button>
     <button class="btn delete-btn">Delete</button>
+    <div class="message-container" id="message-container"></div>
   </div>
 
   <button class="back-btn" onclick="window.location.href='alumni_results.html'">Back to Results</button>
@@ -32,6 +73,14 @@
     // Retrieve the selected alumni from localStorage
     const selectedAlumni = JSON.parse(localStorage.getItem('selectedAlumni'));
     console.log('Selected Alumni:', selectedAlumni);
+
+    // Function to display messages
+    function showMessage(message, type) {
+      const messageContainer = document.getElementById('message-container');
+      messageContainer.textContent = message;
+      messageContainer.className = 'message-container'; // Reset classes
+      messageContainer.classList.add(type, 'show');
+    }
 
     // Function to display the alumni details in a card
     function displayAlumniDetails(alumni) {
@@ -88,14 +137,14 @@
         localStorage.setItem('selectedAlumni', JSON.stringify(selectedAlumni));
         window.location.href = 'edit_alumni.html';
       } else {
-        alert('No alumni data available to edit.');
+        showMessage('No alumni data available to edit.', 'error');
       }
     });
 
     // Add event listener for Delete button
     document.querySelector('.delete-btn').addEventListener('click', function() {
       if (!selectedAlumni || !selectedAlumni.symbol_no) {
-        alert('No alumni data available to delete.');
+        showMessage('No alumni data available to delete.', 'error');
         return;
       }
 
@@ -110,15 +159,17 @@
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            alert('Alumni record deleted successfully.');
-            window.location.href = 'alumni_results.html';
+            showMessage('Alumni record deleted successfully.', 'success');
+            setTimeout(() => {
+              window.location.href = 'alumni_results.html';
+            }, 2000);
           } else {
-            alert('Error deleting alumni record: ' + (data.error || 'Unknown error'));
+            showMessage('Error deleting alumni record: ' + (data.error || 'Unknown error'), 'error');
           }
         })
         .catch(error => {
           console.error('Error deleting alumni:', error);
-          alert('Error deleting alumni record.');
+          showMessage('Error deleting alumni record.', 'error');
         });
       }
     });
