@@ -26,13 +26,16 @@
   <script>
     // Retrieve the selected alumni from localStorage
     const selectedAlumni = JSON.parse(localStorage.getItem('selectedAlumni'));
+    console.log('Selected Alumni:', selectedAlumni);
 
     // Function to display the alumni details in a card
     function displayAlumniDetails(alumni) {
+      console.log('Entering displayAlumniDetails with alumni:', alumni);
       const cardContainer = document.getElementById('alumni-card');
       cardContainer.innerHTML = '';
 
       if (!alumni) {
+        console.log('No alumni data found');
         cardContainer.innerHTML = '<p class="no-details">No alumni details available.</p>';
         return;
       }
@@ -48,6 +51,7 @@
       } else {
         imageSrc = encodeURI(rawImagePath);
       }
+      console.log('Image Src:', imageSrc);
 
       card.innerHTML = `
         <div class="alumni-image-container">
@@ -66,7 +70,12 @@
     }
 
     // Display the alumni details on page load
-    displayAlumniDetails(selectedAlumni);
+    try {
+      displayAlumniDetails(selectedAlumni);
+    } catch (error) {
+      console.error('Error in displayAlumniDetails:', error);
+      document.getElementById('alumni-card').innerHTML = '<p class="no-details">Error loading alumni details.</p>';
+    }
   </script>
 </body>
 </html>
