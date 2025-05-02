@@ -43,8 +43,8 @@
       const card = document.createElement('div');
       card.className = 'alumni-card';
 
-      // Use the image path directly, adding 'uploads/' only if not already present
-      let rawImagePath = alumni.alumni_photo_path || '';
+      // Use the image_path (not alumni_photo_path) as per the data structure
+      let rawImagePath = alumni.image_path || '';
       let imageSrc = rawImagePath;
       if (rawImagePath && !rawImagePath.startsWith('uploads/') && !rawImagePath.startsWith('/admin/')) {
         imageSrc = `uploads/${encodeURI(rawImagePath)}`;
