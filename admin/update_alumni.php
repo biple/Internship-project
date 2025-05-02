@@ -29,7 +29,7 @@ if (!$symbol_no) {
     exit;
 }
 
-// Handle file upload if a new photo is provided
+// Handle alumni photo upload if provided
 $image_path = null;
 if (isset($_FILES['image_path']) && $_FILES['image_path']['error'] === UPLOAD_ERR_OK) {
     $upload_dir = 'uploads/';
@@ -39,7 +39,22 @@ if (isset($_FILES['image_path']) && $_FILES['image_path']['error'] === UPLOAD_ER
     if (move_uploaded_file($_FILES['image_path']['tmp_name'], $target_path)) {
         $image_path = $target_path;
     } else {
-        echo json_encode(['error' => 'Failed to upload photo']);
+        echo json_encode(['error' => 'Failed to upload alumni photo']);
+        exit;
+    }
+}
+
+// Handle certificate image upload if provided
+$certificate_image_path = null;
+if (isset($_FILES['certificate_image_path']) && $_FILES['certificate_image_path']['error'] === UPLOAD_ERR_OK) {
+    $upload_dir = 'uploads/';
+    $file_name = time() . '_' . basename($_FILES['certificate_image_path']['name']);
+    $target_path = $upload_dir . $file_name;
+
+    if (move_uploaded_file($_FILES['certificate_image_path']['tmp_name'], $target_path)) {
+        $certificate_image_path = $target_path;
+    } else {
+        echo json_encode(['error' => 'Failed to upload certificate image']);
         exit;
     }
 }
@@ -67,13 +82,23 @@ if ($image_path) {
     $params[':image_path'] = $image_path;
 }
 
+// Add certificate_image_path to the query if a new certificate image was uploaded
+if ($certificate_image_path) {
+    $query .= ", certificate_image_path = :certificate_image_path";
+    $params[':certificate_image_path'] = $certificate_image_path;
+}
+
 $query .= " WHERE symbol_no = :symbol_no";
 $params[':symbol_no'] = $symbol_no;
 
 try {
     $stmt = $pdo->prepare($query);
     $stmt->execute($params);
-    echo json_encode(['success' => true, 'image_path' => $image_path]);
+    echo json_encode([
+        'success' => true,
+        'image_path' => $image_path,
+        'certificate_image_path' => $certificate_image_path
+    ]);
 } catch (PDOException $e) {
     echo json_encode(['error' => 'Query failed: ' . $e->getMessage()]);
 }
