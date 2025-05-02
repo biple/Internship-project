@@ -13,6 +13,10 @@
       opacity: 0;
       transition: opacity 0.3s ease;
       text-align: center;
+      width: 100%;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .message-container.success {
@@ -179,6 +183,24 @@
       messageContainer.classList.add(type, 'show');
     }
 
+    // Function to check if the record exists in the database
+    async function checkRecordExists(symbolNo) {
+      try {
+        const response = await fetch('check_record.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ symbol_no: symbolNo })
+        });
+        const data = await response.json();
+        return data.exists;
+      } catch (error) {
+        console.error('Error checking record:', error);
+        return false;
+      }
+    }
+
     // Function to display the alumni details in a card
     function displayAlumniDetails(alumni) {
       console.log('Entering displayAlumniDetails with alumni:', alumni);
@@ -194,7 +216,6 @@
       const card = document.createElement('div');
       card.className = 'alumni-card';
 
-      // Use the image_path (not alumni_photo_path) as per the data structure
       let rawImagePath = alumni.image_path || '';
       let imageSrc = rawImagePath;
       if (rawImagePath && !rawImagePath.startsWith('uploads/') && !rawImagePath.startsWith('/admin/')) {
@@ -220,17 +241,36 @@
       cardContainer.appendChild(card);
     }
 
-    // Display the alumni details on page load
-    try {
-      displayAlumniDetails(selectedAlumni);
-    } catch (error) {
-      console.error('Error in displayAlumniDetails:', error);
-      document.getElementById('alumni-card').innerHTML = '<p class="no-details">Error loading alumni details.</p>';
-    }
+    // Check if the record exists and display details on page load
+    (async () => {
+      try {
+        if (selectedAlumni && selectedAlumni.symbol_no) {
+          const recordExists = await checkRecordExists(selectedAlumni.symbol_no);
+          if (!recordExists) {
+            localStorage.removeItem('selectedAlumni');
+            window.location.href = 'alumni_results.html';
+            return;
+          }
+        }
+        displayAlumniDetails(selectedAlumni);
+      } catch (error) {
+        console.error('Error in displayAlumniDetails:', error);
+        document.getElementById('alumni-card').innerHTML = '<p class="no-details">Error loading alumni details.</p>';
+      }
+    })();
 
     // Add event listener for Edit button
-    document.querySelector('.edit-btn').addEventListener('click', function() {
+    document.querySelector('.edit-btn').addEventListener('click', async function() {
       if (selectedAlumni) {
+        const recordExists = await checkRecordExists(selectedAlumni.symbol_no);
+        if (!recordExists) {
+          showMessage('This record no longer exists.', 'error');
+          localStorage.removeItem('selectedAlumni');
+          setTimeout(() => {
+            window.location.href = 'alumni_results.html';
+          }, 2000);
+          return;
+        }
         localStorage.setItem('selectedAlumni', JSON.stringify(selectedAlumni));
         window.location.href = 'edit_alumni.html';
       } else {
@@ -254,9 +294,18 @@
     }
 
     // Add event listener for Delete button to show modal
-    document.querySelector('.delete-btn').addEventListener('click', function() {
+    document.querySelector('.delete-btn').addEventListener('click', async function() {
       if (!selectedAlumni || !selectedAlumni.symbol_no) {
         showMessage('No alumni data available to delete.', 'error');
+        return;
+      }
+      const recordExists = await checkRecordExists(selectedAlumni.symbol_no);
+      if (!recordExists) {
+        showMessage('This record no longer exists.', 'error');
+        localStorage.removeItem('selectedAlumni');
+        setTimeout(() => {
+          window.location.href = 'alumni_results.html';
+        }, 2000);
         return;
       }
       showDeleteModal();
@@ -276,6 +325,7 @@
       .then(data => {
         if (data.success) {
           showMessage('Alumni record deleted successfully.', 'success');
+          localStorage.removeItem('selectedAlumni'); // Clear selectedAlumni
           setTimeout(() => {
             window.location.href = 'alumni_results.html';
           }, 2000);
