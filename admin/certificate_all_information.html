@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Certificate Information - Global Wings</title>
+  <link rel="stylesheet" href="../assets/css/alumni_all_info.css" />
+</head>
+<body>
+  <div class="header">
+    <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo" />
+  </div>
+
+  <div class="title-container">
+    <h1 class="title">All Certificate Information</h1>
+    <div class="controls-container">
+      <button class="create-btn">Create <span class="plus-icon">+</span></button>
+      <div class="sort-container">
+        <label for="sort-by">Sort By:</label>
+        <select id="sort-by" class="sort-select">
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="symbol-asc">Symbol No. (Asc)</option>
+          <option value="symbol-desc">Symbol No. (Desc)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-container" id="results">
+    <!-- Results will be dynamically inserted here -->
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='alumni_certificates.html'">Back to Search</button>
+
+  <div class="footer">
+    ©2025 GlobalWings. All rights reserved.
+  </div>
+
+  <script>
+    // Retrieve the search results from localStorage
+    const allCertificateResults = JSON.parse(localStorage.getItem('allCertificateResults'));
+
+    // Function to display the results
+    function displayResults(data) {
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        resultsContainer.innerHTML = '<p class="no-results">No certificates found.</p>';
+        return;
+      }
+
+      const resultsList = document.createElement('div');
+      resultsList.className = 'results-list';
+
+      data.forEach((certificate) => {
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
+
+        resultItem.innerHTML = `
+          <div class="summary">
+            <div class="summary-details">
+              <p><strong>Name of the alumni</strong></p>
+              <p>${certificate.name}</p>
+            </div>
+            <div class="summary-details">
+              <p><strong>Symbol no.</strong></p>
+              <p>${certificate.symbol_no}</p>
+            </div>
+            <div class="action-buttons">
+              <button class="edit-btn">Edit</button>
+              <button class="remove-btn">Remove</button>
+            </div>
+          </div>
+        `;
+
+        resultsList.appendChild(resultItem);
+      });
+
+      resultsContainer.appendChild(resultsList);
+    }
+
+    // Function to sort the results
+    function sortResults(criteria) {
+      let sortedData = [...allCertificateResults];
+      switch (criteria) {
+        case 'name-asc':
+          sortedData.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'name-desc':
+          sortedData.sort((a, b) => b.name.localeCompare(b.name));
+          break;
+        case 'symbol-asc':
+          sortedData.sort((a, b) => a.symbol_no - b.symbol_no);
+          break;
+        case 'symbol-desc':
+          sortedData.sort((a, b) => b.symbol_no - b.symbol_no);
+          break;
+      }
+      displayResults(sortedData);
+    }
+
+    // Event listener for sort dropdown
+    document.getElementById('sort-by').addEventListener('change', function () {
+      sortResults(this.value);
+    });
+
+    // Display the results on page load (default sort by name ascending)
+    displayResults(allCertificateResults);
+    sortResults('name-asc');
+  </script>
+</body>
+</html>
