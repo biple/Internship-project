@@ -31,10 +31,83 @@
       opacity: 1;
     }
 
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: 2px solid #aa1f1f;
+    }
+
+    .modal-content p {
+      margin: 0 0 20px;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .modal-btn {
+      background-color: #aa1f1f;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .modal-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .modal-btn.cancel {
+      background-color: #666;
+    }
+
+    .modal-btn.cancel:hover {
+      background-color: #888;
+    }
+
     @media (max-width: 768px) {
       .message-container {
         font-size: 0.9rem;
         padding: 8px;
+      }
+
+      .modal-content {
+        padding: 15px;
+        max-width: 350px;
+      }
+
+      .modal-content p {
+        font-size: 1rem;
+      }
+
+      .modal-btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
       }
     }
 
@@ -42,6 +115,20 @@
       .message-container {
         font-size: 0.8rem;
         padding: 6px;
+      }
+
+      .modal-content {
+        padding: 10px;
+        max-width: 300px;
+      }
+
+      .modal-content p {
+        font-size: 0.9rem;
+      }
+
+      .modal-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
       }
     }
   </style>
@@ -64,6 +151,16 @@
   </div>
 
   <button class="back-btn" onclick="window.location.href='alumni_results.html'">Back to Results</button>
+
+  <div class="modal" id="delete-modal">
+    <div class="modal-content">
+      <p>Are you sure you want to delete this alumni record?</p>
+      <div class="modal-buttons">
+        <button class="modal-btn" id="confirm-delete">Confirm</button>
+        <button class="modal-btn cancel" id="cancel-delete">Cancel</button>
+      </div>
+    </div>
+  </div>
 
   <div class="footer">
     ©2025 GlobalWings. All rights reserved.
@@ -141,36 +238,64 @@
       }
     });
 
-    // Add event listener for Delete button
+    // Modal handling for Delete button
+    const deleteModal = document.getElementById('delete-modal');
+    const confirmDeleteBtn = document.getElementById('confirm-delete');
+    const cancelDeleteBtn = document.getElementById('cancel-delete');
+
+    // Function to show the modal
+    function showDeleteModal() {
+      deleteModal.style.display = 'flex';
+    }
+
+    // Function to hide the modal
+    function hideDeleteModal() {
+      deleteModal.style.display = 'none';
+    }
+
+    // Add event listener for Delete button to show modal
     document.querySelector('.delete-btn').addEventListener('click', function() {
       if (!selectedAlumni || !selectedAlumni.symbol_no) {
         showMessage('No alumni data available to delete.', 'error');
         return;
       }
+      showDeleteModal();
+    });
 
-      if (confirm('Are you sure you want to delete this alumni record?')) {
-        fetch('delete_alumni.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ symbol_no: selectedAlumni.symbol_no })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            showMessage('Alumni record deleted successfully.', 'success');
-            setTimeout(() => {
-              window.location.href = 'alumni_results.html';
-            }, 2000);
-          } else {
-            showMessage('Error deleting alumni record: ' + (data.error || 'Unknown error'), 'error');
-          }
-        })
-        .catch(error => {
-          console.error('Error deleting alumni:', error);
-          showMessage('Error deleting alumni record.', 'error');
-        });
+    // Add event listener for Confirm button in modal
+    confirmDeleteBtn.addEventListener('click', function() {
+      hideDeleteModal();
+      fetch('delete_alumni.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ symbol_no: selectedAlumni.symbol_no })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showMessage('Alumni record deleted successfully.', 'success');
+          setTimeout(() => {
+            window.location.href = 'alumni_results.html';
+          }, 2000);
+        } else {
+          showMessage('Error deleting alumni record: ' + (data.error || 'Unknown error'), 'error');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting alumni:', error);
+        showMessage('Error deleting alumni record.', 'error');
+      });
+    });
+
+    // Add event listener for Cancel button in modal
+    cancelDeleteBtn.addEventListener('click', hideDeleteModal);
+
+    // Close modal if user clicks outside the modal content
+    deleteModal.addEventListener('click', function(e) {
+      if (e.target === deleteModal) {
+        hideDeleteModal();
       }
     });
   </script>
