@@ -15,7 +15,7 @@
   }
   
   .card-container {
-    max-width: 600px;
+    max-width: 400px;
     margin: 0 auto;
     background-color: white;
     border: 2px solid #aa1f1f;
@@ -29,11 +29,12 @@
   
   .certificate-image-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 350px;
     height: auto;
     border: 2px solid #aa1f1f;
     border-radius: 5px;
     overflow: hidden;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,7 +48,7 @@
   
   .image-placeholder {
     width: 100%;
-    max-width: 500px;
+    max-width: 350px;
     height: 200px;
     background-color: #f0f0f0;
     border: 2px solid #aa1f1f;
@@ -56,7 +57,7 @@
     align-items: center;
     justify-content: center;
     color: #aa1f1f;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
     padding: 10px;
   }
@@ -108,6 +109,12 @@
     margin-top: 20px;
   }
   
+  .no-details {
+    text-align: center;
+    color: #aa1f1f;
+    font-size: 16px;
+  }
+  
   /* Responsive Design */
   @media (max-width: 600px) {
     .card-container {
@@ -122,6 +129,7 @@
     .image-placeholder {
       max-width: 90%;
       height: 150px;
+      font-size: 12px;
     }
   
     .button-container {
