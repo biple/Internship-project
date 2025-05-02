@@ -47,8 +47,8 @@
       border-radius: 5px;
       overflow-y: auto;
       flex: 1;
-      max-height: calc(100vh - 240px); /* Adjust based on header, title, footer heights */
-      margin-bottom: 60px; /* Space for the footer */
+      max-height: calc(100vh - 240px);
+      margin-bottom: 60px;
     }
 
     .form-group {
@@ -127,6 +127,31 @@
       background-color: #d32f2f;
     }
 
+    .message-container {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      text-align: center;
+    }
+
+    .message-container.success {
+      background-color: #dff0d8;
+      color: #3c763d;
+      border: 1px solid #d6e9c6;
+    }
+
+    .message-container.error {
+      background-color: #f2dede;
+      color: #a94442;
+      border: 1px solid #ebccd1;
+    }
+
+    .message-container.show {
+      opacity: 1;
+    }
+
     .footer {
       background-color: #aa1f1f;
       color: #fff;
@@ -146,7 +171,7 @@
       .form-container {
         max-width: 90%;
         padding: 15px;
-        max-height: calc(100vh - 220px); /* Adjust for smaller header/title */
+        max-height: calc(100vh - 220px);
       }
 
       .form-group input {
@@ -156,6 +181,11 @@
       .btn {
         font-size: 0.9rem;
         padding: 8px 15px;
+      }
+
+      .message-container {
+        font-size: 0.9rem;
+        padding: 8px;
       }
     }
 
@@ -177,7 +207,7 @@
       .form-container {
         max-width: 90%;
         padding: 10px;
-        max-height: calc(100vh - 180px); /* Adjust for smaller header/title/footer */
+        max-height: calc(100vh - 180px);
         margin-bottom: 50px;
       }
 
@@ -195,6 +225,11 @@
       .btn {
         font-size: 0.8rem;
         padding: 6px 12px;
+      }
+
+      .message-container {
+        font-size: 0.8rem;
+        padding: 6px;
       }
 
       .footer {
@@ -250,6 +285,7 @@
     </div>
     <button class="btn" onclick="submitForm()">Save Changes</button>
     <button class="btn" onclick="window.location.href='alumni_details.html'">Cancel</button>
+    <div class="message-container" id="message-container"></div>
   </div>
 
   <div class="footer">
@@ -259,6 +295,17 @@
   <script>
     // Retrieve the selected alumni from localStorage
     const selectedAlumni = JSON.parse(localStorage.getItem('selectedAlumni'));
+
+    // Function to display messages
+    function showMessage(message, type) {
+      const messageContainer = document.getElementById('message-container');
+      messageContainer.textContent = message;
+      messageContainer.className = 'message-container'; // Reset classes
+      messageContainer.classList.add(type, 'show');
+      // Scroll to the bottom of the form container to ensure the message is visible
+      const formContainer = document.querySelector('.form-container');
+      formContainer.scrollTop = formContainer.scrollHeight;
+    }
 
     // Pre-fill the form with existing data
     if (selectedAlumni) {
@@ -270,8 +317,10 @@
       document.getElementById('training_end_date').value = selectedAlumni.training_end_date || '';
       document.getElementById('issue_date').value = selectedAlumni.issue_date || '';
     } else {
-      alert('No alumni data available to edit.');
-      window.location.href = 'alumni_details.html';
+      showMessage('No alumni data available to edit.', 'error');
+      setTimeout(() => {
+        window.location.href = 'alumni_details.html';
+      }, 2000);
     }
 
     // Function to submit the form
@@ -302,7 +351,7 @@
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          alert('Alumni record updated successfully.');
+          showMessage('Alumni record updated successfully.', 'success');
           // Update localStorage with new data
           const updatedAlumni = {
             symbol_no: document.getElementById('symbol_no').value,
@@ -316,14 +365,16 @@
             certificate_image_path: data.certificate_image_path || selectedAlumni.certificate_image_path
           };
           localStorage.setItem('selectedAlumni', JSON.stringify(updatedAlumni));
-          window.location.href = 'alumni_details.html';
+          setTimeout(() => {
+            window.location.href = 'alumni_details.html';
+          }, 2000);
         } else {
-          alert('Error updating alumni record: ' + (data.error || 'Unknown error'));
+          showMessage('Error updating alumni record: ' + (data.error || 'Unknown error'), 'error');
         }
       })
       .catch(error => {
         console.error('Error updating alumni:', error);
-        alert('Error updating alumni record.');
+        showMessage('Error updating alumni record.', 'error');
       });
     }
   </script>
