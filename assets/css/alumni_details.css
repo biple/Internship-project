@@ -92,6 +92,28 @@ body {
   color: #333;
 }
 
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn {
+  background-color: #aa1f1f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #d32f2f;
+}
+
 .back-btn {
   display: block;
   margin: 20px auto;
@@ -141,7 +163,8 @@ body {
     height: 120px;
   }
 
-  .back-btn {
+  .back-btn,
+  .btn {
     font-size: 0.9rem;
     padding: 8px 15px;
   }
@@ -167,7 +190,8 @@ body {
     font-size: 0.85rem;
   }
 
-  .back-btn {
+  .back-btn,
+  .btn {
     font-size: 0.8rem;
     padding: 6px 12px;
   }
