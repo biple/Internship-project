@@ -31,7 +31,8 @@ $query = "SELECT
     issue_date, 
     alumni_email, 
     alumni_contact, 
-    alumni_photo_path AS image_path 
+    alumni_photo_path AS image_path, 
+    certificate_image_path 
 FROM certificates WHERE 1=1";
 $params = [];
 
