@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Alumni - Global Wings</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .header {
+      border-bottom: 3px solid #aa1f1f;
+      padding: 20px 0;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+      max-width: 200px;
+    }
+
+    .title {
+      color: #aa1f1f;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 40px 0 20px;
+    }
+
+    .form-container {
+      margin: 20px 10px;
+      padding: 20px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="date"],
+    .form-group input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #aa1f1f;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .form-group input[type="file"] {
+      padding: 3px;
+    }
+
+    .btn {
+      background-color: #aa1f1f;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 0 5px;
+    }
+
+    .btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .footer {
+      background-color: #aa1f1f;
+      color: #fff;
+      padding: 20px;
+      font-size: 0.9rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2rem;
+      }
+
+      .btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .title {
+        font-size: 1.5rem;
+      }
+
+      .form-group input {
+        font-size: 0.9rem;
+      }
+
+      .btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo" />
+  </div>
+
+  <h1 class="title">Edit Alumni</h1>
+
+  <div class="form-container">
+    <div class="form-group">
+      <label for="symbol_no">Symbol No</label>
+      <input type="text" id="symbol_no" name="symbol_no" readonly />
+    </div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+    <div class="form-group">
+      <label for="alumni_email">Email</label>
+      <input type="email" id="alumni_email" name="alumni_email" required />
+    </div>
+    <div class="form-group">
+      <label for="alumni_contact">Contact No</label>
+      <input type="text" id="alumni_contact" name="alumni_contact" required />
+    </div>
+    <div class="form-group">
+      <label for="training_start_date">Training Start Date</label>
+      <input type="date" id="training_start_date" name="training_start_date" required />
+    </div>
+    <div class="form-group">
+      <label for="training_end_date">Training End Date</label>
+      <input type="date" id="training_end_date" name="training_end_date" required />
+    </div>
+    <div class="form-group">
+      <label for="issue_date">Certificate Issue Date</label>
+      <input type="date" id="issue_date" name="issue_date" required />
+    </div>
+    <div class="form-group">
+      <label for="image_path">Upload New Photo (optional)</label>
+      <input type="file" id="image_path" name="image_path" accept="image/*" />
+    </div>
+    <button class="btn" onclick="submitForm()">Save Changes</button>
+    <button class="btn" onclick="window.location.href='alumni_details.html'">Cancel</button>
+  </div>
+
+  <div class="footer">
+    ©2025 GlobalWings. All rights reserved.
+  </div>
+
+  <script>
+    // Retrieve the selected alumni from localStorage
+    const selectedAlumni = JSON.parse(localStorage.getItem('selectedAlumni'));
+
+    // Pre-fill the form with existing data
+    if (selectedAlumni) {
+      document.getElementById('symbol_no').value = selectedAlumni.symbol_no || '';
+      document.getElementById('name').value = selectedAlumni.name || '';
+      document.getElementById('alumni_email').value = selectedAlumni.alumni_email || '';
+      document.getElementById('alumni_contact').value = selectedAlumni.alumni_contact || '';
+      document.getElementById('training_start_date').value = selectedAlumni.training_start_date || '';
+      document.getElementById('training_end_date').value = selectedAlumni.training_end_date || '';
+      document.getElementById('issue_date').value = selectedAlumni.issue_date || '';
+    } else {
+      alert('No alumni data available to edit.');
+      window.location.href = 'alumni_details.html';
+    }
+
+    // Function to submit the form
+    function submitForm() {
+      const formData = new FormData();
+      formData.append('symbol_no', document.getElementById('symbol_no').value);
+      formData.append('name', document.getElementById('name').value);
+      formData.append('alumni_email', document.getElementById('alumni_email').value);
+      formData.append('alumni_contact', document.getElementById('alumni_contact').value);
+      formData.append('training_start_date', document.getElementById('training_start_date').value);
+      formData.append('training_end_date', document.getElementById('training_end_date').value);
+      formData.append('issue_date', document.getElementById('issue_date').value);
+
+      const fileInput = document.getElementById('image_path');
+      if (fileInput.files.length > 0) {
+        formData.append('image_path', fileInput.files[0]);
+      }
+
+      fetch('update_alumni.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Alumni record updated successfully.');
+          // Update localStorage with new data
+          const updatedAlumni = {
+            symbol_no: document.getElementById('symbol_no').value,
+            name: document.getElementById('name').value,
+            alumni_email: document.getElementById('alumni_email').value,
+            alumni_contact: document.getElementById('alumni_contact').value,
+            training_start_date: document.getElementById('training_start_date').value,
+            training_end_date: document.getElementById('training_end_date').value,
+            issue_date: document.getElementById('issue_date').value,
+            image_path: data.image_path || selectedAlumni.image_path
+          };
+          localStorage.setItem('selectedAlumni', JSON.stringify(updatedAlumni));
+          window.location.href = 'alumni_details.html';
+        } else {
+          alert('Error updating alumni record: ' + (data.error || 'Unknown error'));
+        }
+      })
+      .catch(error => {
+        console.error('Error updating alumni:', error);
+        alert('Error updating alumni record.');
+      });
+    }
+  </script>
+</body>
+</html>
