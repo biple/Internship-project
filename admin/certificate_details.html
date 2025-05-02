@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Certificate Details - Global Wings</title>
+  <link rel="stylesheet" href="../assets/css/alumni_details.css" />
+  <!-- Include jsPDF library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="header">
+    <img src="../assets/images/globalwings.png" alt="Global Wings Logo" class="logo" />
+  </div>
+
+  <h1 class="title">Certificate Details</h1>
+
+  <div class="card-container" id="certificate-container">
+    <!-- Certificate image will be dynamically inserted here -->
+  </div>
+
+  <div class="button-container">
+    <button class="btn edit-btn">Edit</button>
+    <button class="btn download-btn" id="download-pdf">Download</button>
+    <button class="btn delete-btn">Delete</button>
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='certificate_results.html'">Back to Results</button>
+
+  <div class="footer">
+    ©2025 GlobalWings. All rights reserved.
+  </div>
+
+  <script>
+    // Retrieve the selected certificate from localStorage
+    const selectedCertificate = JSON.parse(localStorage.getItem('selectedCertificate'));
+    console.log('Selected Certificate:', selectedCertificate);
+
+    // Function to display the certificate image
+    function displayCertificate(certificate) {
+      const container = document.getElementById('certificate-container');
+      container.innerHTML = '';
+
+      if (!certificate) {
+        container.innerHTML = '<div class="image-placeholder">No certificate available</div>';
+        return;
+      }
+
+      // Use the certificate_image_path as the image source
+      let rawImagePath = certificate.certificate_image_path || '';
+      let imageSrc = rawImagePath;
+      if (rawImagePath && !rawImagePath.startsWith('uploads/') && !rawImagePath.startsWith('/admin/')) {
+        imageSrc = `uploads/${encodeURI(rawImagePath)}`;
+      } else {
+        imageSrc = encodeURI(rawImagePath);
+      }
+      console.log('Image Src:', imageSrc);
+
+      container.innerHTML = `
+        <div class="certificate-image-container">
+          ${imageSrc ? `<img src="${imageSrc}" alt="Certificate Image" class="certificate-image" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'image-placeholder\\'>No Certificate Available</div>';"/>` : '<div class="image-placeholder">No Certificate Available</div>'}
+        </div>
+      `;
+    }
+
+    // Display the certificate on page load
+    try {
+      displayCertificate(selectedCertificate);
+    } catch (error) {
+      console.error('Error in displayCertificate:', error);
+      document.getElementById('certificate-container').innerHTML = '<div class="image-placeholder">Error loading certificate.</div>';
+    }
+
+    // Download certificate as PDF when "Download" is clicked
+    document.getElementById('download-pdf').addEventListener('click', function() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Get the certificate image
+      const img = document.querySelector('.certificate-image');
+      if (!img || !img.src) {
+        console.error('No image found to download');
+        alert('No certificate image available to download.');
+        return;
+      }
+
+      const imgWidth = img.naturalWidth;
+      const imgHeight = img.naturalHeight;
+
+      // Calculate dimensions to fit within A4 size (210mm x 297mm)
+      const pdfWidth = 210; // A4 width in mm
+      const pdfHeight = 297; // A4 height in mm
+      let width = imgWidth;
+      let height = imgHeight;
+
+      // Scale image to fit within A4 dimensions
+      const aspectRatio = imgWidth / imgHeight;
+      if (width > pdfWidth || height > pdfHeight) {
+        if (aspectRatio > 1) {
+          width = pdfWidth - 20; // Leave some margin
+          height = width / aspectRatio;
+        } else {
+          height = pdfHeight - 20; // Leave some margin
+          width = height * aspectRatio;
+        }
+      }
+
+      // Center the image on the PDF
+      const x = (pdfWidth - width) / 2;
+      const y = (pdfHeight - height) / 2;
+
+      // Add image to PDF (assuming the image is loaded as a data URL or file)
+      doc.addImage(img.src, 'JPEG', x, y, width, height);
+
+      // Download the PDF
+      doc.save('certificate.pdf');
+    });
+  </script>
+</body>
+</html>
