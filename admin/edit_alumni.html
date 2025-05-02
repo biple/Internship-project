@@ -19,6 +19,7 @@
     .header {
       border-bottom: 3px solid #aa1f1f;
       padding: 20px 0;
+      flex-shrink: 0;
     }
 
     .logo {
@@ -32,6 +33,7 @@
       font-size: 2.5rem;
       font-weight: bold;
       margin: 40px 0 20px;
+      flex-shrink: 0;
     }
 
     .form-container {
@@ -43,6 +45,10 @@
       background: #fff;
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
+      overflow-y: auto;
+      flex: 1;
+      max-height: calc(100vh - 240px); /* Adjust based on header, title, footer heights */
+      margin-bottom: 60px; /* Space for the footer */
     }
 
     .form-group {
@@ -129,6 +135,7 @@
       position: fixed;
       bottom: 0;
       width: 100%;
+      flex-shrink: 0;
     }
 
     @media (max-width: 768px) {
@@ -139,6 +146,7 @@
       .form-container {
         max-width: 90%;
         padding: 15px;
+        max-height: calc(100vh - 220px); /* Adjust for smaller header/title */
       }
 
       .form-group input {
@@ -154,11 +162,23 @@
     @media (max-width: 480px) {
       .title {
         font-size: 1.5rem;
+        margin: 20px 0 10px;
+      }
+
+      .header {
+        padding: 15px 0;
+      }
+
+      .logo {
+        height: 50px;
+        max-width: 150px;
       }
 
       .form-container {
         max-width: 90%;
         padding: 10px;
+        max-height: calc(100vh - 180px); /* Adjust for smaller header/title/footer */
+        margin-bottom: 50px;
       }
 
       .form-group input {
@@ -175,6 +195,11 @@
       .btn {
         font-size: 0.8rem;
         padding: 6px 12px;
+      }
+
+      .footer {
+        padding: 15px;
+        font-size: 0.8rem;
       }
     }
   </style>
