@@ -29,18 +29,18 @@ body {
 
 .card-container {
   margin: 20px 10px;
-  padding-bottom: 60px;
+  padding-bottom: 80px; /* Increased to avoid footer overlap */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 20px; /* Increased gap for better spacing */
 }
 
 .alumni-card {
   background-color: #fff;
   border: 2px solid #aa1f1f;
   border-radius: 10px;
-  padding: 20px;
+  padding: 25px; /* Increased padding for better spacing */
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -50,7 +50,7 @@ body {
 .alumni-image-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px; /* Increased margin for better spacing */
 }
 
 .alumni-image {
@@ -78,13 +78,13 @@ body {
 }
 
 .alumni-card h3 {
-  margin: 0 0 10px;
+  margin: 0 0 15px; /* Increased margin for better spacing */
   font-size: 1.5rem;
   color: #aa1f1f;
 }
 
 .alumni-card p {
-  margin: 5px 0;
+  margin: 8px 0; /* Increased margin for better spacing */
   font-size: 0.95rem;
 }
 
@@ -93,10 +93,11 @@ body {
 }
 
 .button-container {
-  margin-top: 3px;
+  margin: 20px 0; /* Adjusted margin for better spacing */
   display: flex;
   gap: 15px;
   justify-content: center;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
 .btn {
@@ -116,7 +117,7 @@ body {
 
 .back-btn {
   display: block;
-  margin: 20px auto;
+  margin: 30px auto; /* Increased margin for better spacing */
   padding: 10px 20px;
   background-color: #aa1f1f;
   color: #fff;
@@ -155,6 +156,7 @@ body {
 
   .alumni-card {
     max-width: 100%;
+    padding: 20px;
   }
 
   .alumni-image,
@@ -167,6 +169,10 @@ body {
   .btn {
     font-size: 0.9rem;
     padding: 8px 15px;
+  }
+
+  .card-container {
+    padding-bottom: 70px;
   }
 }
 
@@ -194,5 +200,13 @@ body {
   .btn {
     font-size: 0.8rem;
     padding: 6px 12px;
+  }
+
+  .card-container {
+    padding-bottom: 60px;
+  }
+
+  .button-container {
+    margin: 15px 0;
   }
 }
