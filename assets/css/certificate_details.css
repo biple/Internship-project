@@ -204,6 +204,28 @@ body {
   background-color: #888;
 }
 
+.edit-form {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-form label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.edit-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
 .footer {
   background-color: #aa1f1f;
   color: #fff;
@@ -256,6 +278,12 @@ body {
     font-size: 0.9rem;
     padding: 8px 15px;
   }
+
+  .edit-form input {
+    font-size: 0.9rem;
+    padding: 6px;
+    max-width: 250px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -295,5 +323,11 @@ body {
   .modal-btn {
     font-size: 0.8rem;
     padding: 6px 12px;
+  }
+
+  .edit-form input {
+    font-size: 0.8rem;
+    padding: 5px;
+    max-width: 200px;
   }
 }
