@@ -15,6 +15,8 @@
 
   <h1 class="title">Certificate Details</h1>
 
+  <div class="message-container" id="message-container"></div>
+
   <div class="card-container" id="certificate-container">
     <!-- Certificate image will be dynamically inserted here -->
   </div>
@@ -27,6 +29,16 @@
 
   <button class="back-btn" onclick="window.location.href='certificate_results.html'">Back to Results</button>
 
+  <div class="modal" id="delete-modal">
+    <div class="modal-content">
+      <p>Are you sure you want to delete this certificate record?</p>
+      <div class="modal-buttons">
+        <button class="modal-btn" id="confirm-delete">Confirm</button>
+        <button class="modal-btn cancel" id="cancel-delete">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <div class="footer">
     ©2025 GlobalWings. All rights reserved.
   </div>
@@ -35,6 +47,15 @@
     // Retrieve the selected certificate from localStorage
     const selectedCertificate = JSON.parse(localStorage.getItem('selectedCertificate'));
     console.log('Selected Certificate:', selectedCertificate);
+
+    // Function to display messages
+    function showMessage(message, type) {
+      const messageContainer = document.getElementById('message-container');
+      messageContainer.textContent = message;
+      messageContainer.className = 'message-container'; // Reset classes
+      messageContainer.classList.add(type, 'show');
+      setTimeout(() => messageContainer.classList.remove('show'), 2000); // Auto-hide after 2 seconds
+    }
 
     // Function to display the certificate image
     function displayCertificate(certificate) {
@@ -47,10 +68,8 @@
         return;
       }
 
-      // Use certificate_image_path if available, otherwise fall back to image_path
       let rawImagePath = certificate.certificate_image_path || certificate.image_path || '';
       let imageSrc = rawImagePath;
-      // Remove any leading 'uploads/' to avoid duplication, then prepend it
       imageSrc = imageSrc.replace(/^\/?uploads\//, '');
       imageSrc = `uploads/${encodeURI(imageSrc)}`;
       console.log('Raw Image Path:', rawImagePath);
@@ -75,45 +94,78 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      // Get the certificate image
       const img = document.querySelector('.certificate-image');
       if (!img || !img.src) {
         console.error('No image found to download');
-        alert('No certificate image available to download.');
+        showMessage('No certificate image available to download.', 'error');
         return;
       }
 
       const imgWidth = img.naturalWidth;
       const imgHeight = img.naturalHeight;
 
-      // Calculate dimensions to fit within A4 size (210mm x 297mm)
       const pdfWidth = 210; // A4 width in mm
       const pdfHeight = 297; // A4 height in mm
       let width = imgWidth;
       let height = imgHeight;
 
-      // Scale image to fit within A4 dimensions
       const aspectRatio = imgWidth / imgHeight;
       if (width > pdfWidth || height > pdfHeight) {
         if (aspectRatio > 1) {
-          width = pdfWidth - 20; // Leave some margin
+          width = pdfWidth - 20;
           height = width / aspectRatio;
         } else {
-          height = pdfHeight - 20; // Leave some margin
+          height = pdfHeight - 20;
           width = height * aspectRatio;
         }
       }
 
-      // Center the image on the PDF
       const x = (pdfWidth - width) / 2;
       const y = (pdfHeight - height) / 2;
 
-      // Add image to PDF
       doc.addImage(img.src, 'JPEG', x, y, width, height);
-
-      // Download the PDF
       doc.save('certificate.pdf');
     });
+
+    // Modal handling for Delete button
+    const deleteModal = document.getElementById('delete-modal');
+    const confirmDeleteBtn = document.getElementById('confirm-delete');
+    const cancelDeleteBtn = document.getElementById('cancel-delete');
+
+    function showDeleteModal() {
+      deleteModal.style.display = 'flex';
+    }
+
+    function hideDeleteModal() {
+      deleteModal.style.display = 'none';
+    }
+
+    document.querySelector('.delete-btn').addEventListener('click', function() {
+      if (!selectedCertificate || !selectedCertificate.symbol_no) {
+        showMessage('No certificate data available to delete.', 'error');
+        return;
+      }
+      showDeleteModal();
+    });
+
+    confirmDeleteBtn.addEventListener('click', function() {
+      hideDeleteModal();
+      // Simulate deletion from certificateData (replace with actual API call if needed)
+      let certificateData = JSON.parse(localStorage.getItem('certificateData')) || [];
+      certificateData = certificateData.filter(cert => cert.symbol_no !== selectedCertificate.symbol_no);
+      localStorage.setItem('certificateData', JSON.stringify(certificateData));
+      localStorage.removeItem('selectedCertificate');
+      showMessage('Certificate record deleted successfully.', 'success');
+      setTimeout(() => window.location.href = 'certificate_results.html', 2000);
+    });
+
+    cancelDeleteBtn.addEventListener('click', hideDeleteModal);
+
+    deleteModal.addEventListener('click', function(e) {
+      if (e.target === deleteModal) {
+        hideDeleteModal();
+      }
+    });
   </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93ae86dd0ea18bb8',t:'MTc0NjQzMDE2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
