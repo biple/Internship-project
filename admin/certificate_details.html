@@ -22,7 +22,7 @@
   </div>
 
   <div class="button-container">
-    <button class="btn edit-btn">Edit</button>
+    <button class="btn edit-btn" id="edit-btn">Edit</button>
     <button class="btn download-btn" id="download-pdf">Download</button>
     <button class="btn delete-btn">Delete</button>
   </div>
@@ -35,6 +35,20 @@
       <div class="modal-buttons">
         <button class="modal-btn" id="confirm-delete">Confirm</button>
         <button class="modal-btn cancel" id="cancel-delete">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="edit-modal">
+    <div class="modal-content">
+      <p>Update Certificate Image</p>
+      <div class="edit-form">
+        <label for="certificate-image">New Certificate Image Path:</label>
+        <input type="text" id="certificate-image" placeholder="e.g., uploads/new_certificate.jpg" required />
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-btn" id="confirm-edit">Save</button>
+        <button class="modal-btn cancel" id="cancel-edit">Cancel</button>
       </div>
     </div>
   </div>
@@ -54,7 +68,7 @@
       messageContainer.textContent = message;
       messageContainer.className = 'message-container'; // Reset classes
       messageContainer.classList.add(type, 'show');
-      setTimeout(() => messageContainer.classList.remove('show'), 2000); // Auto-hide after 2 seconds
+      setTimeout(() => messageContainer.classList.remove('show'), 2000);
     }
 
     // Function to display the certificate image
@@ -89,7 +103,7 @@
       document.getElementById('certificate-container').innerHTML = '<div class="image-placeholder">Error loading certificate.</div>';
     }
 
-    // Download certificate as PDF when "Download" is clicked
+    // Download certificate as PDF
     document.getElementById('download-pdf').addEventListener('click', function() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
@@ -104,8 +118,8 @@
       const imgWidth = img.naturalWidth;
       const imgHeight = img.naturalHeight;
 
-      const pdfWidth = 210; // A4 width in mm
-      const pdfHeight = 297; // A4 height in mm
+      const pdfWidth = 210;
+      const pdfHeight = 297;
       let width = imgWidth;
       let height = imgHeight;
 
@@ -127,7 +141,7 @@
       doc.save('certificate.pdf');
     });
 
-    // Modal handling for Delete button
+    // Delete Modal Handling
     const deleteModal = document.getElementById('delete-modal');
     const confirmDeleteBtn = document.getElementById('confirm-delete');
     const cancelDeleteBtn = document.getElementById('cancel-delete');
@@ -150,7 +164,6 @@
 
     confirmDeleteBtn.addEventListener('click', function() {
       hideDeleteModal();
-      // Simulate deletion from certificateData (replace with actual API call if needed)
       let certificateData = JSON.parse(localStorage.getItem('certificateData')) || [];
       certificateData = certificateData.filter(cert => cert.symbol_no !== selectedCertificate.symbol_no);
       localStorage.setItem('certificateData', JSON.stringify(certificateData));
@@ -164,6 +177,61 @@
     deleteModal.addEventListener('click', function(e) {
       if (e.target === deleteModal) {
         hideDeleteModal();
+      }
+    });
+
+    // Edit Modal Handling
+    const editModal = document.getElementById('edit-modal');
+    const confirmEditBtn = document.getElementById('confirm-edit');
+    const cancelEditBtn = document.getElementById('cancel-edit');
+    const certificateImageInput = document.getElementById('certificate-image');
+
+    function showEditModal() {
+      certificateImageInput.value = ''; // Clear input
+      editModal.style.display = 'flex';
+    }
+
+    function hideEditModal() {
+      editModal.style.display = 'none';
+    }
+
+    document.getElementById('edit-btn').addEventListener('click', function() {
+      if (!selectedCertificate || !selectedCertificate.symbol_no) {
+        showMessage('No certificate data available to edit.', 'error');
+        return;
+      }
+      showEditModal();
+    });
+
+    confirmEditBtn.addEventListener('click', function() {
+      const newImagePath = certificateImageInput.value.trim();
+      if (!newImagePath) {
+        showMessage('Please provide a new image path.', 'error');
+        return;
+      }
+
+      let certificateData = JSON.parse(localStorage.getItem('certificateData')) || [];
+      const updatedCertificate = { ...selectedCertificate, certificate_image_path: newImagePath };
+      const index = certificateData.findIndex(cert => cert.symbol_no === selectedCertificate.symbol_no);
+
+      if (index !== -1) {
+        certificateData[index] = updatedCertificate;
+        localStorage.setItem('certificateData', JSON.stringify(certificateData));
+        localStorage.setItem('selectedCertificate', JSON.stringify(updatedCertificate));
+        displayCertificate(updatedCertificate);
+        showMessage('Certificate image updated successfully.', 'success');
+        hideEditModal();
+      } else {
+        showMessage('Certificate record not found in database.', 'error');
+        hideEditModal();
+      }
+    });
+
+    cancelEditBtn.addEventListener('click', hideEditModal);
+
+    editModal.addEventListener('click', function(e) {
+      if (e.target === editModal) {
+        hideEditModal();
       }
     });
   </script>
