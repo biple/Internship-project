@@ -164,12 +164,32 @@
 
     confirmDeleteBtn.addEventListener('click', function() {
       hideDeleteModal();
-      let certificateData = JSON.parse(localStorage.getItem('certificateData')) || [];
-      certificateData = certificateData.filter(cert => cert.symbol_no !== selectedCertificate.symbol_no);
-      localStorage.setItem('certificateData', JSON.stringify(certificateData));
-      localStorage.removeItem('selectedCertificate');
-      showMessage('Certificate record deleted successfully.', 'success');
-      setTimeout(() => window.location.href = 'certificate_results.html', 2000);
+      fetch('delete_certificate.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ symbol_no: selectedCertificate.symbol_no })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Update localStorage
+          let certificateData = JSON.parse(localStorage.getItem('certificateData')) || [];
+          certificateData = certificateData.filter(cert => cert.symbol_no !== selectedCertificate.symbol_no);
+          localStorage.setItem('certificateData', JSON.stringify(certificateData));
+          localStorage.setItem('certificateSearchResults', JSON.stringify(certificateData)); // Update search results
+          localStorage.removeItem('selectedCertificate');
+          showMessage('Certificate record deleted successfully.', 'success');
+          setTimeout(() => window.location.href = 'certificate_results.html', 2000);
+        } else {
+          showMessage('Error deleting certificate record: ' + (data.error || 'Unknown error'), 'error');
+        }
+      })
+      .catch(error => {
+        console.error('Error deleting certificate:', error);
+        showMessage('Error deleting certificate record.', 'error');
+      });
     });
 
     cancelDeleteBtn.addEventListener('click', hideDeleteModal);
@@ -187,7 +207,7 @@
     const certificateImageInput = document.getElementById('certificate-image');
 
     function showEditModal() {
-      certificateImageInput.value = ''; // Clear input
+      certificateImageInput.value = '';
       editModal.style.display = 'flex';
     }
 
@@ -217,6 +237,7 @@
       if (index !== -1) {
         certificateData[index] = updatedCertificate;
         localStorage.setItem('certificateData', JSON.stringify(certificateData));
+        localStorage.setItem('certificateSearchResults', JSON.stringify(certificateData)); // Update search results
         localStorage.setItem('selectedCertificate', JSON.stringify(updatedCertificate));
         displayCertificate(updatedCertificate);
         showMessage('Certificate image updated successfully.', 'success');
