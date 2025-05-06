@@ -66,7 +66,7 @@
     function showMessage(message, type) {
       const messageContainer = document.getElementById('message-container');
       messageContainer.textContent = message;
-      messageContainer.className = 'message-container'; // Reset classes
+      messageContainer.className = 'message-container';
       messageContainer.classList.add(type, 'show');
       setTimeout(() => messageContainer.classList.remove('show'), 2000);
     }
@@ -164,6 +164,10 @@
 
     confirmDeleteBtn.addEventListener('click', function() {
       hideDeleteModal();
+      if (!selectedCertificate || !selectedCertificate.symbol_no) {
+        showMessage('No certificate data available to delete.', 'error');
+        return;
+      }
       fetch('delete_certificate.php', {
         method: 'POST',
         headers: {
@@ -171,24 +175,28 @@
         },
         body: JSON.stringify({ symbol_no: selectedCertificate.symbol_no })
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
       .then(data => {
         if (data.success) {
-          // Update localStorage
           let certificateData = JSON.parse(localStorage.getItem('certificateData')) || [];
           certificateData = certificateData.filter(cert => cert.symbol_no !== selectedCertificate.symbol_no);
           localStorage.setItem('certificateData', JSON.stringify(certificateData));
-          localStorage.setItem('certificateSearchResults', JSON.stringify(certificateData)); // Update search results
+          let certificateSearchResults = JSON.parse(localStorage.getItem('certificateSearchResults')) || [];
+          certificateSearchResults = certificateSearchResults.filter(cert => cert.symbol_no !== selectedCertificate.symbol_no);
+          localStorage.setItem('certificateSearchResults', JSON.stringify(certificateSearchResults));
           localStorage.removeItem('selectedCertificate');
           showMessage('Certificate record deleted successfully.', 'success');
           setTimeout(() => window.location.href = 'certificate_results.html', 2000);
         } else {
-          showMessage('Error deleting certificate record: ' + (data.error || 'Unknown error'), 'error');
+          showMessage('Error deleting certificate: ' + (data.error || 'Unknown error'), 'error');
         }
       })
       .catch(error => {
         console.error('Error deleting certificate:', error);
-        showMessage('Error deleting certificate record.', 'error');
+        showMessage('Failed to delete certificate. Check server connection or database.', 'error');
       });
     });
 
@@ -237,7 +245,7 @@
       if (index !== -1) {
         certificateData[index] = updatedCertificate;
         localStorage.setItem('certificateData', JSON.stringify(certificateData));
-        localStorage.setItem('certificateSearchResults', JSON.stringify(certificateData)); // Update search results
+        localStorage.setItem('certificateSearchResults', JSON.stringify(certificateData));
         localStorage.setItem('selectedCertificate', JSON.stringify(updatedCertificate));
         displayCertificate(updatedCertificate);
         showMessage('Certificate image updated successfully.', 'success');
