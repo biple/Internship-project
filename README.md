@@ -22,12 +22,6 @@ A web‑based alumni management system designed and implemented for **GlobalWing
 
 ---
 
-## Demo
-
-> *Screenshots or a link to a live demo can go here.*  
-
----
-
 ## Features
 
 - **Admin Dashboard**  
